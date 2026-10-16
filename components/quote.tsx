@@ -34,7 +34,7 @@ export function Quote({ buildDayIndex }: { buildDayIndex: number }) {
         className="min-h-[6.5rem] animate-[fade-up_400ms_ease-out] sm:min-h-[6rem]"
       >
         <blockquote className="mb-6 mt-2 max-w-2xl text-xl font-medium italic text-zinc-700 dark:text-zinc-300 sm:text-2xl">
-          &ldquo;{quote.text}&rdquo;
+          {quote.text}
         </blockquote>
         <div className="flex items-center gap-3">
           <span className="h-px w-8 bg-border" />
