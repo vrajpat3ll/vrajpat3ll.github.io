@@ -2,23 +2,51 @@
 
 import { Music } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Icon, SpotifyIcon } from "@/components/icons";
 import { lastfm } from "@/lib/content";
 import { getRecentTrack, isLastfmConfigured, type Track } from "@/lib/lastfm";
+import { cn } from "@/lib/utils";
 
-function AlbumDisc({ image }: { image: string | null }) {
+const PROFILE_URL = `https://www.last.fm/user/${lastfm.username}`;
+
+function AlbumDisc({
+  image,
+  spinning,
+  showBadge,
+}: {
+  image: string | null;
+  spinning: boolean;
+  showBadge: boolean;
+}) {
   return (
-    <div className="relative size-16 shrink-0" aria-hidden="true">
-      <div className="absolute inset-0 overflow-hidden rounded-full ring-1 ring-black/40">
-        {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={image} alt="" className="h-full w-full object-cover" />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-neutral-700 via-neutral-900 to-black">
-            <Music className="size-5 text-neutral-400" />
-          </div>
+    <div className="relative size-16 shrink-0">
+      <div
+        className={cn(
+          "absolute inset-0",
+          spinning && "motion-safe:animate-[spin_6s_linear_infinite]",
         )}
+      >
+        <div className="absolute inset-0 overflow-hidden rounded-full ring-1 ring-black/40">
+          {image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={image} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-neutral-700 via-neutral-900 to-black">
+              <Music className="size-5 text-neutral-400" />
+            </div>
+          )}
+        </div>
+        <div className="absolute inset-[38%] rounded-full bg-background/80 ring-1 ring-black/30" />
       </div>
-      <div className="absolute inset-[38%] rounded-full bg-background/80 ring-1 ring-black/30" />
+
+      {showBadge && (
+        <span
+          title="Open in Spotify"
+          className="absolute -right-1 -bottom-1 grid size-5 place-items-center rounded-full bg-background ring-1 ring-border transition-colors group-hover:ring-foreground/30"
+        >
+          <SpotifyIcon className="size-3.5 text-foreground/70 transition-colors group-hover:text-foreground" />
+        </span>
+      )}
     </div>
   );
 }
@@ -49,25 +77,34 @@ export function NowPlaying() {
 
   if (!isLastfmConfigured()) return null;
 
-  const live = track?.nowPlaying;
+  const live = Boolean(track?.nowPlaying);
+  const spotifyUrl = track?.spotifyUrl ?? null;
 
-  return (
-    <a
-      href={track?.url ?? `https://last.fm/user/${lastfm.username}`}
-      target="_blank"
-      rel="noreferrer"
-      className="group mx-auto flex w-full max-w-sm items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm shadow-sm transition-colors hover:bg-muted"
-    >
-      <AlbumDisc image={track?.image ?? null} />
+  const status = loading
+    ? "Checking activity…"
+    : live
+      ? "Now playing"
+      : track
+        ? "Last played"
+        : "Not listening";
+
+  const content = (
+    <>
+      <AlbumDisc
+        image={track?.image ?? null}
+        spinning={live}
+        showBadge={Boolean(spotifyUrl)}
+      />
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
           <span
-            className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-              live ? "bg-live live-dot" : "bg-muted-foreground/40"
-            }`}
+            className={cn(
+              "h-1.5 w-1.5 shrink-0 rounded-full",
+              live ? "bg-live live-dot" : "bg-muted-foreground/40",
+            )}
           />
-          {loading ? "Checking activity…" : live ? "Now playing" : "Not listening"}
+          {status}
         </span>
         <span className="truncate text-[15px] font-semibold leading-snug text-foreground">
           {loading ? "—" : (track?.title ?? "Nothing playing")}
@@ -79,6 +116,40 @@ export function NowPlaying() {
           </span>
         )}
       </div>
-    </a>
+    </>
+  );
+
+  return (
+    <div
+      aria-live="polite"
+      className="group mx-auto w-full max-w-sm rounded-2xl border border-border bg-card px-4 py-3 text-sm shadow-sm transition-colors hover:bg-muted"
+    >
+      {spotifyUrl ? (
+        <a
+          href={spotifyUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Open "${track?.title}" by ${track?.artist} on Spotify`}
+          className="flex items-center gap-3 outline-none"
+        >
+          {content}
+        </a>
+      ) : (
+        <div className="flex items-center gap-3">{content}</div>
+      )}
+
+      <div className="mt-2 flex justify-end">
+        <a
+          href={track?.url ?? PROFILE_URL}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="View on Last.fm"
+          className="inline-flex items-center gap-1 font-mono text-[10px] text-muted-foreground outline-none transition-colors hover:text-foreground"
+        >
+          <Icon name="lastfm" className="size-3" />
+          Last.fm
+        </a>
+      </div>
+    </div>
   );
 }

@@ -134,6 +134,14 @@ export function MoonIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function SpotifyIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} fill="currentColor" {...props}>
+      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.586 14.424a.75.75 0 0 1-1.031.25c-2.824-1.724-6.377-2.115-10.565-1.159a.75.75 0 1 1-.334-1.462c4.58-1.046 8.508-.604 11.68 1.333a.75.75 0 0 1 .25 1.038zm1.223-2.723a.937.937 0 0 1-1.288.309c-3.232-1.986-8.157-2.561-11.979-1.401a.938.938 0 1 1-.544-1.794c4.364-1.324 9.795-.683 13.502 1.595a.937.937 0 0 1 .309 1.291zm.106-2.835C14.041 8.562 7.795 8.354 4.114 9.472a1.124 1.124 0 1 1-.652-2.152c4.226-1.282 11.122-1.034 15.507 1.57a1.125 1.125 0 0 1-1.15 1.932z" />
+    </svg>
+  );
+}
+
 export function ArrowIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...base} {...strokeProps} {...props}>

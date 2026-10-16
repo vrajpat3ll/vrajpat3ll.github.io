@@ -43,6 +43,12 @@ Everything lives in [`lib/content.ts`](lib/content.ts):
 
 If the key is unset, the widget hides itself.
 
+Tracks link out to Spotify via a **search deep link**
+(`open.spotify.com/search/<artist> <title>`), with a small Last.fm credit for
+attribution. Exact `open.spotify.com/track/<id>` links aren't possible here:
+Last.fm exposes no Spotify ID, and a static export has no server route to
+resolve one (the reference site's `/api/spotify` is server-backed).
+
 ## GitHub activity
 
 The contribution heatmap is fetched **at build time** and baked into the static
