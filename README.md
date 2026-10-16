@@ -55,11 +55,26 @@ agree, and `components/quote.tsx` re-checks on mount and every few minutes.
 
 If the key is unset, the widget hides itself.
 
-Tracks link out to Spotify via a **search deep link**
-(`open.spotify.com/search/<artist> <title>`), with a small Last.fm credit for
-attribution. Exact `open.spotify.com/track/<id>` links aren't possible here:
-Last.fm exposes no Spotify ID, and a static export has no server route to
-resolve one (the reference site's `/api/spotify` is server-backed).
+Tracks link out to Spotify, with a small Last.fm credit for attribution. By
+default that's a **search deep link** (`open.spotify.com/search/<artist> <title>`)
+because Last.fm exposes no Spotify ID, and every keyless cross-platform resolver
+(Odesli/song.link, Songwhip) has shut down.
+
+For **exact track links** (`open.spotify.com/track/<id>`), deploy the companion
+resolver, which holds the Spotify credentials that a static bundle cannot:
+
+```bash
+cd workers/spotify-resolver
+npx wrangler deploy
+npx wrangler secret put SPOTIFY_CLIENT_ID
+npx wrangler secret put SPOTIFY_CLIENT_SECRET
+```
+
+Create the app at <https://developer.spotify.com/dashboard> (Client Credentials
+is enough — no redirect URI or user login). Then set the Worker URL as
+`NEXT_PUBLIC_SPOTIFY_RESOLVER_URL` in `.env.local` and as a repo **Actions
+variable** of the same name. The widget asks the resolver per track, caches the
+answer, and silently falls back to the search link if it's unset or errors.
 
 ## GitHub activity
 

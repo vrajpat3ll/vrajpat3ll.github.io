@@ -39,6 +39,7 @@ jobs:
         run: pnpm build
         env:
           NEXT_PUBLIC_LASTFM_API_KEY: ${{ secrets.NEXT_PUBLIC_LASTFM_API_KEY }}
+          NEXT_PUBLIC_SPOTIFY_RESOLVER_URL: ${{ vars.NEXT_PUBLIC_SPOTIFY_RESOLVER_URL }}
           GH_CONTRIB_TOKEN: ${{ secrets.GH_CONTRIB_TOKEN }}
 
       - name: Configure Pages

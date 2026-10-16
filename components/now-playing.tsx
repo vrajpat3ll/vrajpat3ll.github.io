@@ -5,9 +5,15 @@ import { useEffect, useState } from "react";
 import { Icon, SpotifyIcon } from "@/components/icons";
 import { lastfm } from "@/lib/content";
 import { getRecentTrack, isLastfmConfigured, type Track } from "@/lib/lastfm";
+import {
+  isSpotifyResolverConfigured,
+  resolveSpotifyTrackUrl,
+} from "@/lib/spotify";
 import { cn } from "@/lib/utils";
 
 const PROFILE_URL = `https://www.last.fm/user/${lastfm.username}`;
+
+const resolvedCache = new Map<string, string | null>();
 
 function AlbumDisc({
   image,
@@ -53,6 +59,7 @@ function AlbumDisc({
 
 export function NowPlaying() {
   const [track, setTrack] = useState<Track | null>(null);
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(isLastfmConfigured());
 
   useEffect(() => {
@@ -75,10 +82,40 @@ export function NowPlaying() {
     };
   }, []);
 
+  useEffect(() => {
+    const title = track?.title;
+    const artist = track?.artist;
+
+    if (!title || !artist || !isSpotifyResolverConfigured()) {
+      setResolvedUrl(null);
+      return;
+    }
+
+    const cached = resolvedCache.get(`${artist}\u0000${title}`);
+    if (cached !== undefined) {
+      setResolvedUrl(cached);
+      return;
+    }
+
+    const controller = new AbortController();
+    let active = true;
+
+    resolveSpotifyTrackUrl({ title, artist }, controller.signal).then((url) => {
+      if (!active) return;
+      resolvedCache.set(`${artist}\u0000${title}`, url);
+      setResolvedUrl(url);
+    });
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [track?.title, track?.artist]);
+
   if (!isLastfmConfigured()) return null;
 
   const live = Boolean(track?.nowPlaying);
-  const spotifyUrl = track?.spotifyUrl ?? null;
+  const spotifyUrl = resolvedUrl ?? track?.spotifyUrl ?? null;
 
   const status = loading
     ? "Checking activity…"
