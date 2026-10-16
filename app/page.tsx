@@ -6,6 +6,7 @@ import { Experience } from "@/components/experience";
 import { Education } from "@/components/education";
 import { Quote } from "@/components/quote";
 import { StripedDivider } from "@/components/ui/divider";
+import { dayIndex } from "@/lib/quotes";
 
 export default function HomePage() {
   return (
@@ -17,7 +18,7 @@ export default function HomePage() {
       <GitHubActivity />
       <Experience />
       <Education />
-      <Quote />
+      <Quote buildDayIndex={dayIndex()} />
     </>
   );
 }

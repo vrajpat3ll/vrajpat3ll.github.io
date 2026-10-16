@@ -25,7 +25,7 @@ Everything lives in [`lib/content.ts`](lib/content.ts):
 - `experience` — work history (currently empty — fill this in)
 - `education`
 - `projects` — projects page
-- `quote` — footer quote
+- `quotes` — the pool the daily quote is drawn from (rotates once per day)
 
 ## Assets
 
@@ -33,6 +33,18 @@ Everything lives in [`lib/content.ts`](lib/content.ts):
 - **Avatar** → drop a file at `public/avatar.png`. Until then the site shows
   your initials. (Edit the `src` in `components/profile-header.tsx` for another
   name/format.)
+- **Brand marks** → `assets/brands/*.svg` (official marks, sourced from
+  [Simple Icons](https://simpleicons.org)). They're painted via `mask-image` in
+  `components/brand-mark.tsx`, so each mark takes the current text colour and
+  stays legible in both themes. Swap a file to update the mark.
+
+## Quote of the day
+
+`lib/content.ts` holds the quote pool; `lib/quotes.ts` maps the current UTC day
+onto an entry, so the quote is stable all day and changes at the day boundary.
+Because this is a static export, the rotation runs client-side: `app/page.tsx`
+passes the build-day index down so the prerendered HTML and first client render
+agree, and `components/quote.tsx` re-checks on mount and every few minutes.
 
 ## Now-playing (Last.fm)
 

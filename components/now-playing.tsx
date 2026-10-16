@@ -44,7 +44,7 @@ function AlbumDisc({
           title="Open in Spotify"
           className="absolute -right-1 -bottom-1 grid size-5 place-items-center rounded-full bg-background ring-1 ring-border transition-colors group-hover:ring-foreground/30"
         >
-          <SpotifyIcon className="size-3.5 text-foreground/70 transition-colors group-hover:text-foreground" />
+          <SpotifyIcon className="size-3.5 transition-transform group-hover:scale-110" />
         </span>
       )}
     </div>

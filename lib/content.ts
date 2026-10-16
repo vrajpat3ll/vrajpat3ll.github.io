@@ -183,7 +183,90 @@ export const lastfm = {
   username: "vrajpat3ll",
 } as const;
 
-export const quote = {
-  text: "I was not born with a whole lot of natural talent... but I work hard and I never give up.",
-  author: "Rock Lee",
-} as const;
+export type Quote = {
+  text: string;
+  author: string;
+};
+
+export const quotes: Quote[] = [
+  {
+    text: "The people who are crazy enough to think they can change the world are the ones who do.",
+    author: "Steve Jobs",
+  },
+  {
+    text: "Stay hungry. Stay foolish.",
+    author: "Steve Jobs",
+  },
+  {
+    text: "The most dangerous phrase in the language is, 'We've always done it this way.'",
+    author: "Grace Hopper",
+  },
+  {
+    text: "It's easier to ask forgiveness than it is to get permission.",
+    author: "Grace Hopper",
+  },
+  {
+    text: "The best way to predict the future is to invent it.",
+    author: "Alan Kay",
+  },
+  {
+    text: "We can only see a short distance ahead, but we can see plenty there that needs to be done.",
+    author: "Alan Turing",
+  },
+  {
+    text: "Talk is cheap. Show me the code.",
+    author: "Linus Torvalds",
+  },
+  {
+    text: "Premature optimization is the root of all evil.",
+    author: "Donald Knuth",
+  },
+  {
+    text: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+    author: "Martin Fowler",
+  },
+  {
+    text: "What I cannot create, I do not understand.",
+    author: "Richard Feynman",
+  },
+  {
+    text: "It's fine to celebrate success, but it is more important to heed the lessons of failure.",
+    author: "Bill Gates",
+  },
+  {
+    text: "Our industry does not respect tradition — it only respects innovation.",
+    author: "Satya Nadella",
+  },
+  {
+    text: "If you double the number of experiments you do per year, you're going to double your inventiveness.",
+    author: "Jeff Bezos",
+  },
+  {
+    text: "Make something people want.",
+    author: "Paul Graham",
+  },
+  {
+    text: "If you are not embarrassed by the first version of your product, you've launched too late.",
+    author: "Reid Hoffman",
+  },
+  {
+    text: "Focus is a matter of deciding what things you're not going to do.",
+    author: "John Carmack",
+  },
+  {
+    text: "Everyone knows that debugging is twice as hard as writing a program in the first place.",
+    author: "Brian Kernighan",
+  },
+  {
+    text: "Make it work, make it right, make it fast.",
+    author: "Kent Beck",
+  },
+  {
+    text: "The Web does not just connect machines, it connects people.",
+    author: "Tim Berners-Lee",
+  },
+  {
+    text: "Failure is an option here. If things are not failing, you are not innovating enough.",
+    author: "Elon Musk",
+  },
+];
