@@ -1,61 +1,139 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { site } from "@/lib/content";
+import { cn } from "@/lib/utils";
+import { moreNav, nav, site } from "@/lib/content";
 
-const nav = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "Blog", href: "https://vrajpat3ll.github.io/til", external: true },
-  { label: "Resume", href: "/resume.pdf", external: true },
-];
+function MoreMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-export function SiteHeader() {
-  const pathname = usePathname();
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  if (moreNav.length === 0) return null;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
-      <div className="container-page flex h-14 items-center justify-between">
-        <Link
-          href="/"
-          className="font-mono text-sm font-medium tracking-tight text-foreground"
-        >
-          {site.username}
-          <span className="text-muted-foreground">.dev</span>
-        </Link>
-
-        <nav className="flex items-center gap-1">
-          {nav.map((item) =>
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex items-center gap-1 font-mono text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground"
+      >
+        More
+        <ChevronDown
+          className={cn(
+            "size-3 transition-transform duration-300",
+            open && "rotate-180",
+          )}
+        />
+      </button>
+      {open && (
+        <div className="absolute left-0 top-full z-50 mt-2 min-w-32 overflow-hidden rounded-lg border border-border bg-popover p-1 shadow-lg">
+          {moreNav.map((item) =>
             item.external ? (
               <a
-                key={item.label}
+                key={item.title}
                 href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                className="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                target="_blank"
+                rel="noreferrer"
+                className="block rounded-md px-2 py-1.5 font-mono text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
-                {item.label}
+                {item.title}
               </a>
             ) : (
               <Link
-                key={item.label}
+                key={item.title}
                 href={item.href}
-                className={`rounded-lg px-3 py-1.5 text-sm transition-colors hover:bg-muted hover:text-foreground ${
-                  pathname === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground"
-                }`}
+                onClick={() => setOpen(false)}
+                className="block rounded-md px-2 py-1.5 font-mono text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
-                {item.label}
+                {item.title}
               </Link>
             ),
           )}
-          <div className="ml-1">
-            <ThemeToggle />
-          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function SiteHeader() {
+  const pathname = usePathname();
+  const [affix, setAffix] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setAffix(window.scrollY > 4);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      data-affix={affix}
+      className={cn(
+        "sticky top-0 z-50 bg-background px-2 pt-2 transition-shadow duration-300",
+        affix && "shadow-[0_0_16px_0_black]/10 dark:shadow-[0_0_16px_0_black]",
+      )}
+    >
+      <div className="mx-auto flex h-12 items-center justify-between gap-2 border-x border-t border-b border-edge px-2 sm:gap-4 md:max-w-3xl">
+        <Link
+          href="/"
+          aria-label="Home"
+          className="transition-transform ease-out active:scale-[0.98]"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/icon.svg" alt={site.name} className="h-9 w-9" />
+        </Link>
+
+        <div className="flex-1" />
+
+        <nav className="hidden items-center gap-4 sm:flex">
+          {nav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "font-mono text-sm font-medium transition-colors hover:text-foreground",
+                pathname === item.href
+                  ? "text-foreground"
+                  : "text-muted-foreground",
+              )}
+            >
+              {item.title}
+            </Link>
+          ))}
+          <MoreMenu />
         </nav>
+
+        <div className="flex items-center">
+          <CommandMenu />
+          <span
+            aria-hidden="true"
+            className="mx-2 flex h-4 w-px bg-border"
+          />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

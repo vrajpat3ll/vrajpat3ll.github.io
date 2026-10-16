@@ -117,6 +117,21 @@ export const connect: ConnectLink[] = [
   },
 ];
 
+export const nav: { title: string; href: string }[] = [
+  { title: "Home", href: "/" },
+  { title: "Projects", href: "/projects" },
+];
+
+export const moreNav: { title: string; href: string; external?: boolean }[] = [
+  { title: "Blogs", href: "/blog" },
+];
+
+export const rolePhrases = [
+  "Software Developer",
+  "CSE '26 · IIT Jammu",
+  "Systems & AI",
+];
+
 export const experience: Experience[] = [];
 
 export const education: Education[] = [

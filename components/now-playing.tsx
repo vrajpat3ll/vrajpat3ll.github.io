@@ -1,30 +1,43 @@
 "use client";
 
+import { Music } from "lucide-react";
 import { useEffect, useState } from "react";
-import { MusicIcon } from "@/components/icons";
-import { getRecentTrack, isLastfmConfigured, type Track } from "@/lib/lastfm";
 import { lastfm } from "@/lib/content";
+import { getRecentTrack, isLastfmConfigured, type Track } from "@/lib/lastfm";
+
+function AlbumDisc({ image }: { image: string | null }) {
+  return (
+    <div className="relative size-16 shrink-0" aria-hidden="true">
+      <div className="absolute inset-0 overflow-hidden rounded-full ring-1 ring-black/40">
+        {image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={image} alt="" className="h-full w-full object-cover" />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-neutral-700 via-neutral-900 to-black">
+            <Music className="size-5 text-neutral-400" />
+          </div>
+        )}
+      </div>
+      <div className="absolute inset-[38%] rounded-full bg-background/80 ring-1 ring-black/30" />
+    </div>
+  );
+}
 
 export function NowPlaying() {
   const [track, setTrack] = useState<Track | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(isLastfmConfigured());
 
   useEffect(() => {
-    if (!isLastfmConfigured()) {
-      setLoading(false);
-      return;
-    }
-
+    if (!isLastfmConfigured()) return;
     let active = true;
 
-    async function load() {
-      try {
-        const t = await getRecentTrack(lastfm.username);
-        if (active) setTrack(t);
-      } finally {
-        if (active) setLoading(false);
+    const load = async () => {
+      const t = await getRecentTrack(lastfm.username);
+      if (active) {
+        setTrack(t);
+        setLoading(false);
       }
-    }
+    };
 
     load();
     const id = setInterval(load, 30_000);
@@ -34,9 +47,7 @@ export function NowPlaying() {
     };
   }, []);
 
-  if (!isLastfmConfigured()) {
-    return null;
-  }
+  if (!isLastfmConfigured()) return null;
 
   const live = track?.nowPlaying;
 
@@ -45,32 +56,29 @@ export function NowPlaying() {
       href={track?.url ?? `https://last.fm/user/${lastfm.username}`}
       target="_blank"
       rel="noreferrer"
-      className="group flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-3 transition-colors hover:bg-muted"
+      className="group mx-auto flex w-full max-w-sm items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm shadow-sm transition-colors hover:bg-muted"
     >
-      <span
-        className={`relative flex h-2 w-2 shrink-0 ${live ? "live-dot" : ""}`}
-        style={{ color: "var(--live)" }}
-      >
-        <span className="h-2 w-2 rounded-full bg-current" />
-      </span>
+      <AlbumDisc image={track?.image ?? null} />
 
-      <MusicIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
-
-      <span className="min-w-0 flex-1 font-mono text-xs sm:text-sm">
-        {loading ? (
-          <span className="text-muted-foreground">Checking activity…</span>
-        ) : track ? (
-          <>
-            <span className="text-muted-foreground">
-              {live ? "now playing" : "last played"}:{" "}
-            </span>
-            <span className="text-foreground">{track.title}</span>
-            <span className="text-muted-foreground"> — {track.artist}</span>
-          </>
-        ) : (
-          <span className="text-muted-foreground">Not listening</span>
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <span className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
+          <span
+            className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+              live ? "bg-live live-dot" : "bg-muted-foreground/40"
+            }`}
+          />
+          {loading ? "Checking activity…" : live ? "Now playing" : "Not listening"}
+        </span>
+        <span className="truncate text-[15px] font-semibold leading-snug text-foreground">
+          {loading ? "—" : (track?.title ?? "Nothing playing")}
+        </span>
+        {track && (
+          <span className="truncate font-mono text-xs text-muted-foreground">
+            {track.artist}
+            {track.album ? ` · ${track.album}` : ""}
+          </span>
         )}
-      </span>
+      </div>
     </a>
   );
 }

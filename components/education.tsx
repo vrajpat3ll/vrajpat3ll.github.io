@@ -1,19 +1,21 @@
-import { Section } from "@/components/section";
+import { GraduationCap } from "lucide-react";
+import { Panel } from "@/components/ui/panel";
 import { education } from "@/lib/content";
 
 export function Education() {
   return (
-    <Section id="education" title="Education">
-      <ol className="space-y-5">
+    <Panel id="education" title="Education">
+      <div className="space-y-6">
         {education.map((item) => (
-          <li key={item.school}>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="text-sm font-medium text-foreground">
+          <div key={item.school} className="flex items-start gap-3">
+            <GraduationCap className="mt-1 size-4 shrink-0 text-muted-foreground" />
+            <div className="min-w-0 flex-1">
+              <h3 className="text-base font-medium leading-snug">
                 {item.schoolUrl ? (
                   <a
                     href={item.schoolUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="underline-offset-4 hover:underline"
                   >
                     {item.school}
@@ -22,16 +24,14 @@ export function Education() {
                   item.school
                 )}
               </h3>
-              <span className="font-mono text-xs text-muted-foreground">
-                {item.period}
-              </span>
+              <p className="mt-1 flex flex-wrap gap-x-4 font-mono text-xs text-muted-foreground">
+                <span>{item.degree}</span>
+                <span>{item.period}</span>
+              </p>
             </div>
-            <p className="mt-0.5 text-sm text-muted-foreground">
-              {item.degree}
-            </p>
-          </li>
+          </div>
         ))}
-      </ol>
-    </Section>
+      </div>
+    </Panel>
   );
 }

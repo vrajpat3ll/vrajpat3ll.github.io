@@ -1,22 +1,25 @@
-import { quote, site } from "@/lib/content";
+import { PixelCat } from "@/components/pixel-cat";
+import { FullLine } from "@/components/ui/divider";
+import { site } from "@/lib/content";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-8 border-t border-border pt-8 pb-12">
-      <blockquote className="border-l-2 border-border pl-4">
-        <p className="text-sm italic text-muted-foreground">
-          &ldquo;{quote.text}&rdquo;
-        </p>
-        <footer className="mt-1.5 font-mono text-xs text-muted-foreground">
-          — {quote.author}
-        </footer>
-      </blockquote>
-
-      <p className="mt-8 font-mono text-xs text-muted-foreground">
-        © {year} {site.name} · built with Next.js
-      </p>
+    <footer className="relative">
+      <FullLine className="top-0" />
+      <div className="flex items-end justify-between gap-4 px-4 py-6 sm:px-5">
+        <div className="flex flex-col gap-1">
+          <span className="font-mono text-[12px] text-muted-foreground">
+            © {year} {site.name}
+          </span>
+          <span className="font-mono text-[12px] text-muted-foreground">
+            Built with love, LLMs and Coffee
+          </span>
+        </div>
+        <PixelCat className="h-20 w-auto shrink-0 opacity-70" />
+      </div>
+      <div className="h-6 w-full pattern-dots" aria-hidden="true" />
     </footer>
   );
 }

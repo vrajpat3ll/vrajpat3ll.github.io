@@ -1,14 +1,22 @@
-import { Section } from "@/components/section";
+import { NowPlaying } from "@/components/now-playing";
+import { Panel } from "@/components/ui/panel";
 import { about } from "@/lib/content";
 
 export function About() {
   return (
-    <Section id="about" title="About">
-      <div className="space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+    <Panel id="about" title="About">
+      <ul className="space-y-3.5 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
         {about.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
+          <li key={i} className="relative pl-5">
+            <span className="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/50" />
+            {paragraph}
+          </li>
         ))}
+      </ul>
+
+      <div className="mt-6">
+        <NowPlaying />
       </div>
-    </Section>
+    </Panel>
   );
 }

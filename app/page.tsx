@@ -1,17 +1,21 @@
-import { Hero } from "@/components/hero";
+import { ProfileHeader } from "@/components/profile-header";
 import { About } from "@/components/about";
-import { Connect } from "@/components/connect";
+import { SocialLinks } from "@/components/social-links";
 import { Experience } from "@/components/experience";
 import { Education } from "@/components/education";
+import { Quote } from "@/components/quote";
+import { StripedDivider } from "@/components/ui/divider";
 
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <ProfileHeader />
+      <StripedDivider />
       <About />
-      <Connect />
+      <SocialLinks />
       <Experience />
       <Education />
+      <Quote />
     </>
   );
 }

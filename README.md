@@ -31,7 +31,8 @@ Everything lives in [`lib/content.ts`](lib/content.ts):
 
 - **Resume** → `public/resume.pdf` (served at `/resume.pdf`).
 - **Avatar** → drop a file at `public/avatar.png`. Until then the site shows
-  your initials. (Edit the `src` in `components/hero.tsx` for another name/format.)
+  your initials. (Edit the `src` in `components/profile-header.tsx` for another
+  name/format.)
 
 ## Now-playing (Last.fm)
 
