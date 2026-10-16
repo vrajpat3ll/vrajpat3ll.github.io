@@ -38,6 +38,7 @@ export type Project = {
   blurb: string;
   href?: string;
   repo?: string;
+  image?: string;
   stack: string[];
   year: string;
 };

@@ -19,6 +19,23 @@ const sizes: Record<Size, string> = {
   icon: "h-8 w-8",
 };
 
+export function buttonVariants({
+  variant = "outline",
+  size = "md",
+  className,
+}: {
+  variant?: Variant;
+  size?: Size;
+  className?: string;
+} = {}) {
+  return cn(
+    "inline-flex select-none items-center justify-center gap-1.5 rounded-lg font-medium outline-none transition-[background-color,color,transform] ease-out focus-visible:ring-[3px] focus-visible:ring-accent active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
+    variants[variant],
+    sizes[size],
+    className,
+  );
+}
+
 export function Button({
   variant = "outline",
   size = "md",
@@ -29,14 +46,6 @@ export function Button({
   size?: Size;
 }) {
   return (
-    <button
-      className={cn(
-        "inline-flex select-none items-center justify-center gap-1.5 rounded-lg font-medium outline-none transition-[background-color,color,transform] ease-out focus-visible:ring-[3px] focus-visible:ring-accent active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
-        variants[variant],
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
+    <button className={buttonVariants({ variant, size, className })} {...props} />
   );
 }
