@@ -14,7 +14,7 @@ export function SiteFooter() {
             © {year} {site.name}
           </span>
           <span className="font-mono text-[12px] text-muted-foreground">
-            Built with love, LLMs and Coffee
+            Built with love, LLMs and 1 kilo Biryani
           </span>
         </div>
         <PixelCat className="h-20 w-auto shrink-0 opacity-70" />

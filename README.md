@@ -43,6 +43,14 @@ Everything lives in [`lib/content.ts`](lib/content.ts):
 
 If the key is unset, the widget hides itself.
 
+## GitHub activity
+
+The contribution heatmap is fetched **at build time** and baked into the static
+HTML. Set `GH_CONTRIB_TOKEN` (a token with `read:user`) in `.env.local` and as a
+repo **Actions secret** to use the GitHub GraphQL API. Without it, the build
+falls back to the public `github-contributions-api`; if both fail, the panel
+degrades to a short message instead of breaking the build.
+
 ## Deploy
 
 Pushing to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
