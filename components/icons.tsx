@@ -1,6 +1,6 @@
 import type { ReactElement, SVGProps } from "react";
 import type { BrandName } from "@/components/brand-mark";
-import { BrandMark, SPOTIFY_GREEN } from "@/components/brand-mark";
+import { BrandMark } from "@/components/brand-mark";
 import type { IconName } from "@/lib/content";
 
 const base = {
@@ -78,9 +78,7 @@ export function Icon({
 }
 
 export function SpotifyIcon({ className }: { className?: string }) {
-  return (
-    <BrandMark name="spotify" className={className} style={{ color: SPOTIFY_GREEN }} />
-  );
+  return <BrandMark name="spotify" className={className} />;
 }
 
 export function SunIcon(props: SVGProps<SVGSVGElement>) {

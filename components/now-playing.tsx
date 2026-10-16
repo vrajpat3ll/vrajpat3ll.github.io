@@ -44,7 +44,7 @@ function AlbumDisc({
           title="Open in Spotify"
           className="absolute -right-1 -bottom-1 grid size-5 place-items-center rounded-full bg-background ring-1 ring-border transition-colors group-hover:ring-foreground/30"
         >
-          <SpotifyIcon className="size-3.5 transition-transform group-hover:scale-110" />
+          <SpotifyIcon className="size-3.5 text-muted-foreground transition-colors duration-500 group-hover:text-[#1DB954] group-focus-within:text-[#1DB954]" />
         </span>
       )}
     </div>
@@ -144,7 +144,7 @@ export function NowPlaying() {
           target="_blank"
           rel="noreferrer"
           aria-label="View on Last.fm"
-          className="inline-flex items-center gap-1 font-mono text-[10px] text-muted-foreground outline-none transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1 font-mono text-[10px] text-muted-foreground outline-none transition-colors duration-500 hover:text-[#D51007] focus-visible:text-[#D51007]"
         >
           <Icon name="lastfm" className="size-3" />
           Last.fm

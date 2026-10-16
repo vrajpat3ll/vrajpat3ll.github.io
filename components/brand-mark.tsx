@@ -37,8 +37,6 @@ function urlOf(asset: string | { src: string }): string {
   return typeof asset === "string" ? asset : asset.src;
 }
 
-export const SPOTIFY_GREEN = "#1DB954";
-
 export function BrandMark({
   name,
   className,
