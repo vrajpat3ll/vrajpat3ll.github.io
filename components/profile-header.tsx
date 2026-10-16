@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeCheck, Camera, Eye } from "lucide-react";
+import { BadgeCheck, Camera } from "lucide-react";
 import { useState } from "react";
 import { AnimatedText } from "@/components/animated-text";
 import { ActivityStatus } from "@/components/activity-status";
@@ -108,7 +108,7 @@ export function ProfileHeader() {
         </div>
 
         <div className="flex flex-1 flex-col justify-center gap-1 py-2 pl-2 sm:pl-4">
-          <div className="flex items-center justify-between pr-2 sm:pr-4">
+          <div className="flex items-center justify-end pr-2 sm:pr-4">
             <Tooltip label="Toggle glitch effect">
               <button
                 type="button"
@@ -119,10 +119,6 @@ export function ProfileHeader() {
                 <Camera className="size-3.5" />
               </button>
             </Tooltip>
-            <span className="flex items-center gap-1 font-mono text-xs text-muted-foreground">
-              <Eye className="size-3.5" />
-              <span className="tabular-nums">—</span>
-            </span>
           </div>
 
           <div className="flex items-center gap-2 pt-2 pb-2">
