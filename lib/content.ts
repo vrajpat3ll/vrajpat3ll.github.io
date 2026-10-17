@@ -57,8 +57,8 @@ export const site = {
 } as const;
 
 export const about: string[] = [
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "I'm an engineer who moves between systems, quantitative research, and AI. The through-line is curiosity: I like understanding how complex things work, then rebuilding them well enough that the understanding holds up.",
+  "Most of what I build starts as a question rather than a product — how a network behaves under load, how a market simulator distorts what a strategy actually learns, how far an autonomous agent can get with a small set of tools. I document the ones worth sharing in the Workbench below.",
 ];
 
 export const connect: ConnectLink[] = [
@@ -70,7 +70,7 @@ export const connect: ConnectLink[] = [
   },
   {
     label: "LinkedIn",
-    handle: "in/vrajpat3ll",
+    handle: "vrajpat3ll",
     href: "https://linkedin.com/in/vrajpat3ll/",
     icon: "linkedin",
   },
@@ -110,12 +110,6 @@ export const connect: ConnectLink[] = [
     href: "/resume.pdf",
     icon: "resume",
   },
-  {
-    label: "Blog",
-    handle: "TIL / Notes",
-    href: "https://vrajpat3ll.github.io/til",
-    icon: "blog",
-  },
 ];
 
 export const nav: { title: string; href: string }[] = [
@@ -133,7 +127,55 @@ export const rolePhrases = [
   "Systems & AI",
 ];
 
-export const experience: Experience[] = [];
+export const experience: Experience[] = [
+  {
+    company: "Accenture",
+    companyUrl: "https://www.accenture.com/",
+    role: "AI Native Software Engineering Analyst",
+    type: "Full-time",
+    period: "Jul 2026 — Present",
+    points: [
+      "Developing full-stack applications using C#.NET and ASP.NET, owning features across application development and AI engineering, applying solid software engineering practices.",
+    ],
+    stack: ["Azure", "C#", ".NET", "ASP.NET", "AI Engineering"],
+  },
+  {
+    company: "Accenture",
+    companyUrl: "https://www.accenture.com/",
+    role: "Advanced Application Engineering Analyst Intern",
+    type: "Internship",
+    period: "May 2025 — Jul 2025",
+    points: [
+      "Automated cloud capacity monitoring and utilization reporting across 10+ Azure subscriptions, improving visibility into infrastructure usage for operational planning.",
+      "Built REST API-driven analytics and event-based reporting pipelines with real-time dashboards to improve observability of cloud resource consumption.",
+      "Developed an AI-assisted infrastructure provisioning workflow combining Terraform and LLM APIs to automate deployment decisions and workflows.",
+    ],
+    stack: ["Azure", "Terraform", "REST APIs", "LLM APIs"],
+  },
+  {
+    company: "Indian Institute of Technology, Jammu",
+    companyUrl: "https://www.iitjammu.ac.in/",
+    role: "Undergraduate Student Researcher",
+    type: "Full-time",
+    period: "Jan 2025 — Dec 2025",
+    points: [
+      "Worked under Dr. Samaresh Bera on auto-scaling and load balancing techniques for 5G core networks, primarily focusing on AMFs.",
+      "Paper accepted at IEEE INDISCON 2026 in the Communication Systems & Network Technologies track.",
+    ],
+    stack: ["Kubernetes", "Docker", "Bash", "C", "Python"],
+  },
+  {
+    company: "Indian Institute of Technology, Kanpur",
+    companyUrl: "https://www.iitk.ac.in/",
+    role: "Summer Intern",
+    type: "Internship",
+    period: "May 2024 — Jul 2024",
+    points: [
+      "Created Python scripts to calculate the fractal dimension of facial images for emotion recognition, and built graphs to show patterns between fractal dimension and emotions.",
+    ],
+    stack: ["Python", "Algorithms"],
+  },
+];
 
 export const education: Education[] = [
   {
@@ -146,36 +188,45 @@ export const education: Education[] = [
 
 export const projects: Project[] = [
   {
-    name: "Project One",
+    name: "Orion",
     blurb:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Placeholder description to be replaced with a real project.",
-    repo: "https://github.com/vrajpat3ll",
-    stack: ["Next.js", "TypeScript"],
+      "An autonomous coding agent with an interactive CLI that runs prompts, manages tools, and automates development workflows around a tight edit-run-review loop.",
+    repo: "https://github.com/vrajpat3ll/orion",
+    stack: ["Python", "LLMs", "CLI"],
     year: "2026",
   },
   {
-    name: "Project Two",
+    name: "Load balancing for 5G networks",
     blurb:
-      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Placeholder description to be replaced with a real project.",
-    repo: "https://github.com/vrajpat3ll",
-    stack: ["Python", "PyTorch"],
+      "A 5G core simulation for testing traffic-aware AMF load balancing and auto-scaling, moving UE context between instances without dropping sessions.",
+    repo: "https://github.com/vrajpat3ll/elastic-lb",
+    stack: ["C", "SCTP", "Kubernetes"],
     year: "2025",
   },
   {
-    name: "Project Three",
+    name: "Movie recommendation",
     blurb:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco. Placeholder description to be replaced with a real project.",
-    repo: "https://github.com/vrajpat3ll",
-    stack: ["Go", "Docker"],
+      "A content-based recommender that suggests movies and shows from synopsis, genre, cast, and director, shipped as a live Streamlit app.",
+    href: "https://movie-recs-vrajpat3ll.streamlit.app",
+    repo: "https://github.com/vrajpat3ll/movie-recommendation",
+    stack: ["Python", "Streamlit", "NLP"],
+    year: "2026",
+  },
+  {
+    name: "Dream 11 dream team predictor",
+    blurb:
+      "Our solution to Dream11's Next-Gen Dream Team Predictor problem statement at Inter-IIT 13.0, held at IIT Bombay.",
+    repo: "https://github.com/vrajpat3ll/Dream-11-Mid-Prep",
+    stack: ["Python", "Machine learning", "Data science"],
     year: "2025",
   },
   {
-    name: "Project Four",
+    name: "Aarogya Salahkar",
     blurb:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse. Placeholder description to be replaced with a real project.",
-    repo: "https://github.com/vrajpat3ll",
-    stack: ["C++", "CMake"],
-    year: "2024",
+      "A GraphRAG healthcare assistant that answers medical questions in Gujarati, grounded in a Neo4j knowledge graph, ChromaDB embeddings, and a QLoRA fine-tuned Qwen model.",
+    repo: "https://github.com/vrajpat3ll/aarogya-salahkar",
+    stack: ["Python", "GraphRAG", "QLoRA", "Neo4j"],
+    year: "2026",
   },
 ];
 

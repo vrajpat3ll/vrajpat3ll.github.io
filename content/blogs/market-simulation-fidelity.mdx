@@ -1,0 +1,25 @@
+---
+title: "How much does simulation fidelity change what an agent learns?"
+summary: "Loosening fill assumptions in the simulator to see whether a policy that looks good in backtests still survives more honest execution constraints."
+category: "Market simulation"
+status: "VALIDATING"
+date: "2026-09-01"
+---
+
+The working hypothesis is that a surprising amount of apparent edge in a
+reinforcement-learning trading policy is really an artefact of optimistic
+fills. This note tracks the experiment that tries to falsify that.
+
+## Setup
+
+Two versions of the same environment: one with idealised fills, one with fees,
+slippage and partial fills enabled. The agent, the reward and the seed stay
+fixed — only the execution model changes.
+
+## What I'm watching for
+
+- Whether the policy's behaviour changes qualitatively, or just its score.
+- Whether the honest environment pushes it toward more conservative positions.
+
+> Draft findings — no numbers yet. The point of writing this down early is to
+> commit to a methodology before the results are in.

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { FullLine } from "@/components/ui/divider";
+import { EdgeStripes, FullLine } from "@/components/ui/divider";
 
 export function Column({
   children,
@@ -36,8 +36,9 @@ export function Panel({
 }) {
   return (
     <section id={id} className={cn("relative", className)}>
-      <FullLine className="top-0" />
       <header className="relative px-4 sm:px-5">
+        <EdgeStripes />
+        <FullLine className="top-0" />
         <h2 className="py-4 font-pixel text-2xl font-semibold tracking-tight sm:text-3xl">
           {title}
         </h2>

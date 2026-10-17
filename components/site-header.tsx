@@ -5,11 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { CommandMenu } from "@/components/command-menu";
+import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
-import { moreNav, nav, site } from "@/lib/content";
+import { moreNav, nav } from "@/lib/content";
 
-function MoreMenu() {
+const NAV_INLINE_LIMIT = 4;
+
+type NavItem = { title: string; href: string; external?: boolean };
+
+const allNav: NavItem[] = [...nav, ...moreNav];
+const hasOverflow = allNav.length > NAV_INLINE_LIMIT;
+const inlineNav = hasOverflow ? allNav.slice(0, NAV_INLINE_LIMIT) : allNav;
+const overflowNav = hasOverflow ? allNav.slice(NAV_INLINE_LIMIT) : [];
+
+function MoreMenu({ items }: { items: NavItem[] }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -29,7 +39,7 @@ function MoreMenu() {
     };
   }, [open]);
 
-  if (moreNav.length === 0) return null;
+  if (items.length === 0) return null;
 
   return (
     <div ref={ref} className="relative">
@@ -49,7 +59,7 @@ function MoreMenu() {
       </button>
       {open && (
         <div className="absolute left-0 top-full z-50 mt-2 min-w-32 overflow-hidden rounded-lg border border-border bg-popover p-1 shadow-lg">
-          {moreNav.map((item) =>
+          {items.map((item) =>
             item.external ? (
               <a
                 key={item.title}
@@ -102,28 +112,39 @@ export function SiteHeader() {
           aria-label="Home"
           className="transition-transform ease-out active:scale-[0.98]"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/icon.svg" alt={site.name} className="h-9 w-9" />
+          <Logo className="h-9 w-9" />
         </Link>
 
         <div className="flex-1" />
 
         <nav className="hidden items-center gap-4 sm:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "font-mono text-sm font-medium transition-colors hover:text-foreground",
-                pathname === item.href
-                  ? "text-foreground"
-                  : "text-muted-foreground",
-              )}
-            >
-              {item.title}
-            </Link>
-          ))}
-          <MoreMenu />
+          {inlineNav.map((item) =>
+            item.external ? (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {item.title}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "font-mono text-sm font-medium transition-colors hover:text-foreground",
+                  pathname === item.href
+                    ? "text-foreground"
+                    : "text-muted-foreground",
+                )}
+              >
+                {item.title}
+              </Link>
+            ),
+          )}
+          <MoreMenu items={overflowNav} />
         </nav>
 
         <div className="flex items-center">

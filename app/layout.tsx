@@ -87,7 +87,7 @@ export default function RootLayout({
         <ThemeProvider>
           <ProgressBar />
           <SiteHeader />
-          <main className="max-w-screen overflow-x-clip px-2 pt-2">
+          <main className="max-w-screen overflow-x-clip px-2">
             <Column>{children}</Column>
           </main>
           <div className="px-2">
