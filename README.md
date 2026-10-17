@@ -1,6 +1,7 @@
 # vrajpat3ll.github.io
 
-Personal site — Next.js static export, deployed to GitHub Pages.
+Personal site and portfolio — Next.js (App Router) static export, deployed to
+GitHub Pages.
 
 ## Develop
 
@@ -13,19 +14,43 @@ pnpm dev          # http://localhost:3000
 
 ```bash
 pnpm build        # outputs static site to ./out
+pnpm typecheck    # tsc --noEmit
 ```
+
+There is no lint or test suite.
 
 ## Editing content
 
 Everything lives in [`lib/content.ts`](lib/content.ts):
 
-- `site` — name, role, description
+- `site` — name, username, role, location, email, canonical `url`, page title/description, bio
 - `about` — bio paragraphs
 - `connect` — the social/contact cards
-- `experience` — work history (currently empty — fill this in)
-- `education`
-- `projects` — projects page
+- `nav` / `moreNav` — header navigation entries
+- `rolePhrases` — the rotating phrases in the profile header
+- `experience` — work history
+- `education` — degrees
+- `projects` — the projects page
+- `lastfm` — username for the now-playing widget
 - `quotes` — the pool the daily quote is drawn from (rotates once per day)
+
+## Blog
+
+Posts live in `content/blogs/*.mdx`. Frontmatter is zod-validated in
+[`lib/blog.ts`](lib/blog.ts) at build time; invalid frontmatter fails the build.
+
+```yaml
+---
+title: "…"
+summary: "…"
+category: "…"
+status: "IN PROGRESS"   # EXPLORING | IN PROGRESS | VALIDATING | COMPLETE
+date: "2026-08-01"
+---
+```
+
+Because the blog uses `dynamicParams = false` + `generateStaticParams`, a new
+post only exists after a rebuild — pushing to `main` triggers one.
 
 ## Assets
 
