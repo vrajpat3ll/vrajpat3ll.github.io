@@ -108,7 +108,7 @@ export function ProfileHeader() {
         </div>
 
         <div className="flex flex-1 flex-col justify-center gap-1 py-2 pl-2 sm:pl-4">
-          <div className="flex items-center justify-end pr-2 sm:pr-4">
+          <div className="flex items-center">
             <Tooltip label="Toggle glitch effect">
               <button
                 type="button"

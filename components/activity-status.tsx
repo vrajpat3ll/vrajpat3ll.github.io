@@ -38,14 +38,14 @@ export function ActivityStatus() {
   return (
     <span
       aria-live="polite"
-      className="flex min-h-4 items-center gap-1.5 font-mono text-xs text-muted-foreground"
+      className="flex min-h-4 min-w-0 items-start gap-1.5 font-mono text-xs text-muted-foreground"
     >
       <span
-        className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+        className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${
           live ? "bg-live live-dot" : "bg-muted-foreground/40"
         }`}
       />
-      <span className="truncate">{label}</span>
+      <span className="break-words">{label}</span>
     </span>
   );
 }
