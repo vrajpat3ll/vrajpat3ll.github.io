@@ -35,6 +35,7 @@ export function DinoGame() {
     spawnIn: 70,
     obstacles: [] as Obstacle[],
     fg: "#e4e4e7",
+    bg: "#09090b",
     muted: "#71717a",
     legPhase: 0,
   });
@@ -58,6 +59,10 @@ export function DinoGame() {
 
     const styles = getComputedStyle(canvas);
     state.fg = styles.getPropertyValue("--foreground").trim() || "#e4e4e7";
+    state.bg =
+      styles.getPropertyValue("--card").trim() ||
+      styles.getPropertyValue("--background").trim() ||
+      "#09090b";
     state.muted =
       styles.getPropertyValue("--muted-foreground").trim() || "#71717a";
 
@@ -105,16 +110,17 @@ export function DinoGame() {
     const overlaps = (o: Obstacle) => {
       const dinoLeft = DINO_X;
       const dinoRight = DINO_X + DINO_W;
-      const dinoBottom = GROUND;
-      const dinoTop = GROUND - DINO_H - state.y;
+      const dinoBottom = GROUND - state.y;
+      const dinoTop = dinoBottom - DINO_H;
       const oLeft = o.x;
       const oRight = o.x + o.w;
       const oTop = GROUND - o.h;
+      const oBottom = GROUND;
       return (
         dinoRight > oLeft &&
         dinoLeft < oRight &&
         dinoBottom > oTop &&
-        dinoTop < GROUND
+        dinoTop < oBottom
       );
     };
 
@@ -139,24 +145,34 @@ export function DinoGame() {
         ctx.fillRect(x - drift, GROUND, 8, 2);
       }
 
-      const dinoBottom = GROUND;
-      const dinoTop = dinoBottom - DINO_H - state.y;
+      const dinoTop = GROUND - DINO_H - state.y;
 
-      ctx.fillStyle = state.fg;
-      roundRect(DINO_X, dinoTop + 6, DINO_W, DINO_H - 6, 4);
-      roundRect(DINO_X + DINO_W - 8, dinoTop, 13, 12, 3);
+      const r = (
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        rad = 0,
+        color = state.fg,
+      ) => {
+        ctx.fillStyle = color;
+        if (rad > 0) roundRect(DINO_X + x, dinoTop + y, w, h, rad);
+        else ctx.fillRect(DINO_X + x, dinoTop + y, w, h);
+      };
 
-      ctx.fillStyle = "#0a0a0a";
+      r(0, 7, 5, 4, 2);
+      r(3, 8, 14, 14, 4);
+      r(12, 0, 12, 12, 3);
+      r(17, 3, 2, 3, 0, state.bg);
+      r(19, 8, 4, 2, 0, state.bg);
+      r(14, 13, 5, 3, 1);
 
       const running = phaseRef.current === "running" && state.onGround;
-      if (running) {
-        const up = state.legPhase < Math.PI;
-        ctx.fillRect(DINO_X + 3, dinoBottom - 5, 6, 5 + (up ? 0 : 3));
-        ctx.fillRect(DINO_X + DINO_W - 13, dinoBottom - 5, 6, 5 + (up ? 3 : 0));
-      } else {
-        ctx.fillRect(DINO_X + 3, dinoBottom - 5, 6, 5);
-        ctx.fillRect(DINO_X + DINO_W - 13, dinoBottom - 5, 6, 5);
-      }
+      const lifted = state.legPhase < Math.PI;
+      const backH = running && lifted ? 6 : 9;
+      const frontH = running && !lifted ? 6 : 9;
+      r(4, 21, 4, backH, 1);
+      r(13, 21, 4, frontH, 1);
 
       for (const o of state.obstacles) {
         ctx.fillStyle = state.fg;
@@ -203,7 +219,10 @@ export function DinoGame() {
       state.spawnIn -= state.speed * dt;
       if (state.spawnIn <= 0) {
         spawn();
-        state.spawnIn = 150 + Math.random() * 130;
+        state.spawnIn = Math.max(
+          170,
+          state.speed * (0.9 + Math.random() * 0.7),
+        );
       }
 
       for (const o of state.obstacles) o.x -= state.speed * dt;
