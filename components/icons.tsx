@@ -54,14 +54,17 @@ const brandIcons: Partial<Record<IconName, BrandName>> = {
   leetcode: "leetcode",
   codeforces: "codeforces",
   lastfm: "lastfm",
+  medium: "medium",
 };
 
-const strokeIcons: Record<string, (props: SVGProps<SVGSVGElement>) => ReactElement> =
-  {
-    mail: Mail,
-    resume: Resume,
-    blog: Blog,
-  };
+const strokeIcons: Record<
+  string,
+  (props: SVGProps<SVGSVGElement>) => ReactElement
+> = {
+  mail: Mail,
+  resume: Resume,
+  blog: Blog,
+};
 
 export function Icon({
   name,

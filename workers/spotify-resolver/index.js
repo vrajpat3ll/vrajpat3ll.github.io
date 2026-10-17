@@ -65,7 +65,11 @@ export default {
     const hit = await cache.match(cacheKey);
     if (hit) {
       return new Response(hit.body, {
-        headers: { "Content-Type": "application/json", ...CORS, "X-Cache": "HIT" },
+        headers: {
+          "Content-Type": "application/json",
+          ...CORS,
+          "X-Cache": "HIT",
+        },
       });
     }
 

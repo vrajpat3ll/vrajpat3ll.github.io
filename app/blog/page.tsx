@@ -7,7 +7,7 @@ import { site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Notes, TILs, and writing.",
+  description: "Research notes on systems, market simulation, and agents.",
 };
 
 const TIL_URL = "https://vrajpat3ll.github.io/til";
@@ -21,16 +21,15 @@ export default function BlogPage() {
   return (
     <Panel id="blog" title="Blog">
       <p className="mb-6 max-w-prose font-mono text-sm text-muted-foreground">
-        Research notes and things I&apos;m digging into — systems, market
-        simulation and agents. Published while they&apos;re still in progress,
-        not after.
+        Research notes on systems, market simulation and agents. I publish them
+        while the work is still in progress.
       </p>
       <BlogList items={items} />
 
       <div className="mt-8 border-t border-border pt-6">
         <p className="max-w-prose text-sm leading-relaxed text-muted-foreground">
-          I also write short notes and things I learn over at my TIL site —
-          mostly systems, tooling, and whatever I&apos;m currently digging into.
+          I also keep short notes on what I&apos;m learning at my TIL site,
+          mostly systems and tooling.
         </p>
         <a
           href={TIL_URL}

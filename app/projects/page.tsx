@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowIcon } from "@/components/icons";
+import { ProjectMark } from "@/components/project-mark";
 import { Panel } from "@/components/ui/panel";
 import { projects } from "@/lib/content";
 
@@ -13,8 +14,8 @@ export default function ProjectsPage() {
   return (
     <Panel title="Projects">
       <p className="mb-6 max-w-prose font-mono text-sm text-muted-foreground">
-        Selected things I&apos;ve built and broken. Placeholders until I write
-        the real ones up.
+        A few things I&apos;ve built. Each card links to the source or a live
+        demo.
       </p>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -37,9 +38,12 @@ export default function ProjectsPage() {
                     className="object-cover"
                   />
                 ) : (
-                  <span className="font-pixel text-5xl font-semibold text-muted-foreground/40">
-                    {project.name.charAt(0)}
-                  </span>
+                  <ProjectMark
+                    mark={project.mark}
+                    tone={project.tone}
+                    anim={project.anim}
+                    className="h-14 w-auto opacity-70 transition-opacity group-hover:opacity-100"
+                  />
                 )}
                 <span className="absolute top-2 right-2 rounded-md border border-border bg-background/80 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground backdrop-blur-sm">
                   {project.year}

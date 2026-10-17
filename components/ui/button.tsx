@@ -7,10 +7,11 @@ type Size = "sm" | "md" | "icon";
 const variants: Record<Variant, string> = {
   default:
     "bg-accent text-accent-foreground hover:bg-accent/80 border border-transparent",
-  outline:
-    "border border-border bg-transparent text-foreground hover:bg-muted",
-  secondary: "bg-muted text-foreground hover:bg-muted/70 border border-transparent",
-  ghost: "border border-transparent hover:bg-muted text-muted-foreground hover:text-foreground",
+  outline: "border border-border bg-transparent text-foreground hover:bg-muted",
+  secondary:
+    "bg-muted text-foreground hover:bg-muted/70 border border-transparent",
+  ghost:
+    "border border-transparent hover:bg-muted text-muted-foreground hover:text-foreground",
 };
 
 const sizes: Record<Size, string> = {
@@ -46,6 +47,9 @@ export function Button({
   size?: Size;
 }) {
   return (
-    <button className={buttonVariants({ variant, size, className })} {...props} />
+    <button
+      className={buttonVariants({ variant, size, className })}
+      {...props}
+    />
   );
 }

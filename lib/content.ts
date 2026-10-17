@@ -5,6 +5,7 @@ export type IconName =
   | "mail"
   | "leetcode"
   | "codeforces"
+  | "medium"
   | "resume"
   | "blog"
   | "lastfm";
@@ -41,6 +42,9 @@ export type Project = {
   image?: string;
   stack: string[];
   year: string;
+  mark: string;
+  tone?: "foreground" | "muted" | "info" | "live";
+  anim?: "blink" | "bob" | "pulse" | "scan" | "jitter";
 };
 
 export const site = {
@@ -57,8 +61,8 @@ export const site = {
 } as const;
 
 export const about: string[] = [
-  "I'm an engineer who moves between systems, quantitative research, and AI. The through-line is curiosity: I like understanding how complex things work, then rebuilding them well enough that the understanding holds up.",
-  "Most of what I build starts as a question rather than a product — how a network behaves under load, how a market simulator distorts what a strategy actually learns, how far an autonomous agent can get with a small set of tools. I document the ones worth sharing in the Workbench below.",
+  "I'm an engineer who works across systems, quantitative research, and AI. I like taking complex things apart to see how they work, then rebuilding them.",
+  "Most of what I build starts from a question. How does a network behave under load? How much does a market simulator distort what a strategy learns? How far can an autonomous agent get with a few tools? I write up a few of them as notes in the blog.",
 ];
 
 export const connect: ConnectLink[] = [
@@ -105,10 +109,10 @@ export const connect: ConnectLink[] = [
     icon: "lastfm",
   },
   {
-    label: "Resume",
-    handle: "PDF",
-    href: "/resume.pdf",
-    icon: "resume",
+    label: "Medium",
+    handle: "vrajpat3ll",
+    href: "https://medium.com/@vrajpat3ll",
+    icon: "medium",
   },
 ];
 
@@ -190,10 +194,13 @@ export const projects: Project[] = [
   {
     name: "Orion",
     blurb:
-      "An autonomous coding agent with an interactive CLI that runs prompts, manages tools, and automates development workflows around a tight edit-run-review loop.",
+      "An autonomous coding agent with an interactive CLI for running prompts and managing tools, built around an edit-run-review loop.",
     repo: "https://github.com/vrajpat3ll/orion",
     stack: ["Python", "LLMs", "CLI"],
     year: "2026",
+    mark: "OR",
+    tone: "foreground",
+    anim: "bob",
   },
   {
     name: "Load balancing for 5G networks",
@@ -202,6 +209,9 @@ export const projects: Project[] = [
     repo: "https://github.com/vrajpat3ll/elastic-lb",
     stack: ["C", "SCTP", "Kubernetes"],
     year: "2025",
+    mark: "5G",
+    tone: "info",
+    anim: "scan",
   },
   {
     name: "Movie recommendation",
@@ -211,6 +221,9 @@ export const projects: Project[] = [
     repo: "https://github.com/vrajpat3ll/movie-recommendation",
     stack: ["Python", "Streamlit", "NLP"],
     year: "2026",
+    mark: "MR",
+    tone: "live",
+    anim: "blink",
   },
   {
     name: "Dream 11 dream team predictor",
@@ -219,14 +232,20 @@ export const projects: Project[] = [
     repo: "https://github.com/vrajpat3ll/Dream-11-Mid-Prep",
     stack: ["Python", "Machine learning", "Data science"],
     year: "2025",
+    mark: "D11",
+    tone: "foreground",
+    anim: "jitter",
   },
   {
     name: "Aarogya Salahkar",
     blurb:
-      "A GraphRAG healthcare assistant that answers medical questions in Gujarati, grounded in a Neo4j knowledge graph, ChromaDB embeddings, and a QLoRA fine-tuned Qwen model.",
+      "A GraphRAG healthcare assistant that answers medical questions in Gujarati using a Neo4j knowledge graph, ChromaDB embeddings, and a QLoRA fine-tuned Qwen model.",
     repo: "https://github.com/vrajpat3ll/aarogya-salahkar",
     stack: ["Python", "GraphRAG", "QLoRA", "Neo4j"],
     year: "2026",
+    mark: "AS",
+    tone: "info",
+    anim: "pulse",
   },
 ];
 

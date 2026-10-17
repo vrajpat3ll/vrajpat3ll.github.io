@@ -65,9 +65,7 @@ export function Experience() {
   return (
     <Panel id="experience" title="Experience">
       {experience.length === 0 ? (
-        <p className="font-mono text-sm text-muted-foreground">
-          — coming soon
-        </p>
+        <p className="font-mono text-sm text-muted-foreground">— coming soon</p>
       ) : (
         <div className="space-y-8">
           {[...companies.entries()].map(([company, jobs]) => (

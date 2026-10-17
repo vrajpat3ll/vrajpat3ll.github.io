@@ -39,7 +39,9 @@ export function AnimatedText({
                 : { opacity: 0, filter: "blur(8px)", y: 12 }
             }
             animate={
-              reduce ? { opacity: 1 } : { opacity: 1, filter: "blur(0px)", y: 0 }
+              reduce
+                ? { opacity: 1 }
+                : { opacity: 1, filter: "blur(0px)", y: 0 }
             }
             transition={{ delay: i * 0.02, duration: 0.35, ease: "easeOut" }}
             className="inline-block whitespace-pre"

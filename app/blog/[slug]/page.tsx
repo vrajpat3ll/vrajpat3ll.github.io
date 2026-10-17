@@ -31,7 +31,14 @@ export async function generateMetadata({
       url: `/blog/${slug}/`,
       title: doc.frontmatter.title,
       description: doc.frontmatter.summary,
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: doc.frontmatter.title }],
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: doc.frontmatter.title,
+        },
+      ],
     },
   };
 }

@@ -1,6 +1,6 @@
 ---
 title: "The real cost of stateless UE migration"
-summary: "What has to be true for user-equipment context to move between AMF instances without a session drop — and where the state quietly hides."
+summary: "What has to be true for user-equipment context to move between AMF instances without a session drop, and where that state lives."
 category: "Systems performance"
 status: "EXPLORING"
 date: "2026-07-01"
@@ -8,11 +8,11 @@ date: "2026-07-01"
 
 Context for the load-balancing work, written before the experiments are final.
 
-## Where the state hides
+## Where the state lives
 
-"Stateless" is a claim about the receiving instance, not the system. The state
-still exists somewhere — the question is whether it can be reconstructed rather
-than transferred.
+"Stateless" describes the receiving instance, not the system. The state still
+exists somewhere. The question is whether the receiver can reconstruct it
+instead of receiving it.
 
 ## Things to pin down
 
@@ -20,4 +20,5 @@ than transferred.
 - How SCTP association state interacts with migration.
 - What the recovery story is if the receiving AMF fails mid-hand-off.
 
-> Draft — an open investigation. Notes will be revised as the design firms up.
+> Draft. This is an open investigation. I will revise these notes as the design
+> settles.

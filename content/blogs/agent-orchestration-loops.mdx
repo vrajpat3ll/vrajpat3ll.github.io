@@ -1,6 +1,6 @@
 ---
-title: "Small tool surfaces beat bigger prompts"
-summary: "Notes on structuring a coding agent around a tight edit-run-review loop instead of a large prompt, and what that buys in reliability."
+title: "Small tool sets work better than bigger prompts"
+summary: "Notes on structuring a coding agent around a tight edit-run-review loop, and how that loop affects reliability compared to a large prompt."
 category: "Agent orchestration"
 status: "IN PROGRESS"
 date: "2026-08-01"
@@ -10,15 +10,16 @@ A running collection of observations from building Orion.
 
 ## The claim
 
-An agent's reliability comes more from the shape of its tools and loop than
-from the length of its instructions. When the loop is explicit — edit, run,
-read, decide — failures are localised and recoverable.
+An agent's reliability depends more on the shape of its tools and loop than on
+the length of its instructions. An explicit loop of edit, run, read, and decide
+keeps failures local and recoverable.
 
 ## Notes so far
 
-- Fewer tools, each with a clear contract, beat many tools with overlapping
-  behaviour.
-- Making the result of every action observable keeps the agent grounded.
+- Fewer tools, each with a clear contract, work better than many tools with
+  overlapping behaviour.
+- An agent that can observe the result of every action can correct itself before
+  continuing.
 - The prompt should describe constraints, not procedure.
 
-> Draft — this is an evolving note, updated as the design changes.
+> Draft. This note changes as the design changes.

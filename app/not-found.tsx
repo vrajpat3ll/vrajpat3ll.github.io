@@ -20,7 +20,10 @@ export default function NotFound() {
       <DinoGame />
 
       <div className="mt-6 flex gap-3">
-        <Link href="/" className={buttonVariants({ variant: "outline", size: "sm" })}>
+        <Link
+          href="/"
+          className={buttonVariants({ variant: "outline", size: "sm" })}
+        >
           Back home
         </Link>
       </div>

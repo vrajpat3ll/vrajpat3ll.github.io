@@ -149,10 +149,7 @@ export function SiteHeader() {
 
         <div className="flex items-center">
           <CommandMenu />
-          <span
-            aria-hidden="true"
-            className="mx-2 flex h-4 w-px bg-border"
-          />
+          <span aria-hidden="true" className="mx-2 flex h-4 w-px bg-border" />
           <ThemeToggle />
         </div>
       </div>

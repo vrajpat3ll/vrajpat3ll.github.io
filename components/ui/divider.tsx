@@ -16,10 +16,7 @@ export function StripedDivider({ className }: { className?: string }) {
   return (
     <div
       aria-hidden="true"
-      className={cn(
-        "relative h-6 w-full pattern-stripes",
-        className,
-      )}
+      className={cn("relative h-6 w-full pattern-stripes", className)}
     />
   );
 }

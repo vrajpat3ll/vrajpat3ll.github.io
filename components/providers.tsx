@@ -29,7 +29,8 @@ function systemPrefersDark() {
 }
 
 function applyTheme(theme: Theme) {
-  const isDark = theme === "dark" || (theme === "system" && systemPrefersDark());
+  const isDark =
+    theme === "dark" || (theme === "system" && systemPrefersDark());
   const root = document.documentElement;
   root.classList.toggle("dark", isDark);
   root.style.colorScheme = isDark ? "dark" : "light";

@@ -58,7 +58,8 @@ export function DinoGame() {
 
     const styles = getComputedStyle(canvas);
     state.fg = styles.getPropertyValue("--foreground").trim() || "#e4e4e7";
-    state.muted = styles.getPropertyValue("--muted-foreground").trim() || "#71717a";
+    state.muted =
+      styles.getPropertyValue("--muted-foreground").trim() || "#71717a";
 
     const reset = () => {
       state.y = 0;
@@ -109,7 +110,12 @@ export function DinoGame() {
       const oLeft = o.x;
       const oRight = o.x + o.w;
       const oTop = GROUND - o.h;
-      return dinoRight > oLeft && dinoLeft < oRight && dinoBottom > oTop && dinoTop < GROUND;
+      return (
+        dinoRight > oLeft &&
+        dinoLeft < oRight &&
+        dinoBottom > oTop &&
+        dinoTop < GROUND
+      );
     };
 
     const roundRect = (
@@ -155,7 +161,13 @@ export function DinoGame() {
       for (const o of state.obstacles) {
         ctx.fillStyle = state.fg;
         roundRect(o.x, GROUND - o.h, o.w, o.h, 3);
-        roundRect(o.x - o.w * 0.55, GROUND - o.h * 0.7, o.w * 0.6, o.h * 0.35, 2);
+        roundRect(
+          o.x - o.w * 0.55,
+          GROUND - o.h * 0.7,
+          o.w * 0.6,
+          o.h * 0.35,
+          2,
+        );
         roundRect(o.x + o.w, GROUND - o.h * 0.55, o.w * 0.5, o.h * 0.3, 2);
       }
 

@@ -4,6 +4,7 @@ import github from "@/assets/brands/github.svg";
 import lastfm from "@/assets/brands/lastdotfm.svg";
 import leetcode from "@/assets/brands/leetcode.svg";
 import linkedin from "@/assets/brands/linkedin.svg";
+import medium from "@/assets/brands/medium.svg";
 import spotify from "@/assets/brands/spotify.svg";
 import x from "@/assets/brands/x.svg";
 import { cn } from "@/lib/utils";
@@ -15,7 +16,8 @@ export type BrandName =
   | "linkedin"
   | "x"
   | "leetcode"
-  | "codeforces";
+  | "codeforces"
+  | "medium";
 
 /**
  * Official brand marks, kept as SVG files in `assets/brands/`. They're painted
@@ -30,6 +32,7 @@ const SOURCES: Record<BrandName, string | { src: string }> = {
   x,
   leetcode,
   codeforces,
+  medium,
 };
 
 /** Next hands back `StaticImageData` for image imports; take the URL. */

@@ -93,7 +93,7 @@ async function fromPublicApi(): Promise<Contributions> {
     days: json.contributions.map((d) => ({
       date: d.date,
       count: d.count,
-      level: (Math.min(Math.max(d.level, 0), 4) as ContributionDay["level"]),
+      level: Math.min(Math.max(d.level, 0), 4) as ContributionDay["level"],
     })),
   };
 }
