@@ -12,7 +12,7 @@ Personal site: Next.js App Router, **static export** to GitHub Pages. See `READM
 
 - `next.config.ts` sets `output: "export"`, `trailingSlash: true`, `images.unoptimized`. No server runtime, no API routes, no `next start`, no `next/image` optimization.
 - All pages are prerendered. Blog uses `dynamicParams = false` + `generateStaticParams` — new posts only exist after a rebuild.
-- Anything env-dependent is baked in at build time. `NEXT_PUBLIC_*` vars are inlined into the client bundle; `GH_CONTRIB_TOKEN` is build-only. Never assume runtime env.
+- Anything env-dependent is baked in at build time. `NEXT_PUBLIC_*` vars are inlined into the client bundle; `GH_CONTRIB_TOKEN` is build-only. Never assume runtime env. The GitHub heatmap is the exception: it hydrates from the build snapshot, then re-fetches the public contributions API in the browser (see `lib/contributions.ts`).
 
 ## Content
 

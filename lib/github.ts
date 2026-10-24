@@ -1,24 +1,12 @@
-const USERNAME = "vrajpat3ll";
+import { site } from "@/lib/content";
+import {
+  fetchPublicContributions,
+  levelFromGraphQL,
+  type Contributions,
+} from "@/lib/contributions";
+
+const USERNAME = site.username;
 const TOKEN = process.env.GH_CONTRIB_TOKEN;
-
-export type ContributionDay = {
-  date: string;
-  count: number;
-  level: 0 | 1 | 2 | 3 | 4;
-};
-
-export type Contributions = {
-  total: number;
-  days: ContributionDay[];
-};
-
-const LEVELS: Record<string, ContributionDay["level"]> = {
-  NONE: 0,
-  FIRST_QUARTILE: 1,
-  SECOND_QUARTILE: 2,
-  THIRD_QUARTILE: 3,
-  FOURTH_QUARTILE: 4,
-};
 
 async function fromGraphQL(): Promise<Contributions> {
   const res = await fetch("https://api.github.com/graphql", {
@@ -66,7 +54,7 @@ async function fromGraphQL(): Promise<Contributions> {
     week.contributionDays.map((day) => ({
       date: day.date,
       count: day.contributionCount,
-      level: LEVELS[day.contributionLevel] ?? 0,
+      level: levelFromGraphQL(day.contributionLevel),
     })),
   );
 
@@ -74,28 +62,9 @@ async function fromGraphQL(): Promise<Contributions> {
 }
 
 async function fromPublicApi(): Promise<Contributions> {
-  const res = await fetch(
-    `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`,
-    { headers: { "User-Agent": `${USERNAME}-site` } },
-  );
-
-  if (!res.ok) throw new Error(`Public contributions API ${res.status}`);
-
-  const json = (await res.json()) as {
-    total: Record<string, number>;
-    contributions: { date: string; count: number; level: 0 | 1 | 2 | 3 | 4 }[];
-  };
-
-  const total = Object.values(json.total ?? {}).reduce((a, b) => a + b, 0);
-
-  return {
-    total,
-    days: json.contributions.map((d) => ({
-      date: d.date,
-      count: d.count,
-      level: Math.min(Math.max(d.level, 0), 4) as ContributionDay["level"],
-    })),
-  };
+  const data = await fetchPublicContributions(USERNAME);
+  if (!data) throw new Error("Public contributions API unavailable");
+  return data;
 }
 
 export async function getContributions(): Promise<Contributions | null> {
