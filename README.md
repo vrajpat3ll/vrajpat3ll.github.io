@@ -103,11 +103,14 @@ answer, and silently falls back to the search link if it's unset or errors.
 
 ## GitHub activity
 
-The contribution heatmap is fetched **at build time** and baked into the static
-HTML. Set `GH_CONTRIB_TOKEN` (a token with `read:user`) in `.env.local` and as a
-repo **Actions secret** to use the GitHub GraphQL API. Without it, the build
-falls back to the public `github-contributions-api`; if both fail, the panel
-degrades to a short message instead of breaking the build.
+The contribution heatmap is **prerendered from a build-time snapshot** and then
+refreshed in the browser from the public `github-contributions-api`, so it keeps
+up with new contributions without a redeploy. Set `GH_CONTRIB_TOKEN` (a token
+with `read:user`) in `.env.local` and as a repo **Actions secret** to build the
+snapshot via the GitHub GraphQL API; without it, the build falls back to the
+same public API. The token is never shipped to the client, so the browser
+refresh only sees public contributions. If both the snapshot and the refresh
+fail, the panel degrades to a short message instead of breaking the build.
 
 ## Deploy
 
