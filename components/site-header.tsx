@@ -5,10 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { CommandMenu } from "@/components/command-menu";
+import { Icon } from "@/components/icons";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
-import { moreNav, nav } from "@/lib/content";
+import { moreNav, nav, resumeHref } from "@/lib/content";
 import type { LatestPost } from "@/lib/search-index";
 
 const NAV_INLINE_LIMIT = 4;
@@ -149,6 +150,18 @@ export function SiteHeader({ latestPost }: { latestPost?: LatestPost }) {
         </nav>
 
         <div className="flex items-center">
+          <a
+            href={resumeHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Résumé (PDF)"
+            className="mr-2 inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-border bg-background px-2.5 text-muted-foreground shadow-xs outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-accent sm:px-3"
+          >
+            <Icon name="resume" className="size-4" />
+            <span className="hidden font-sans text-sm/4 font-medium sm:inline">
+              Résumé
+            </span>
+          </a>
           <CommandMenu latestPost={latestPost} />
           <span aria-hidden="true" className="mx-2 flex h-4 w-px bg-border" />
           <ThemeToggle />
