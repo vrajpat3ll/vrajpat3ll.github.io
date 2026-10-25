@@ -9,6 +9,7 @@ import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import { moreNav, nav } from "@/lib/content";
+import type { LatestPost } from "@/lib/search-index";
 
 const NAV_INLINE_LIMIT = 4;
 
@@ -87,7 +88,7 @@ function MoreMenu({ items }: { items: NavItem[] }) {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ latestPost }: { latestPost?: LatestPost }) {
   const pathname = usePathname();
   const [affix, setAffix] = useState(false);
 
@@ -148,7 +149,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center">
-          <CommandMenu />
+          <CommandMenu latestPost={latestPost} />
           <span aria-hidden="true" className="mx-2 flex h-4 w-px bg-border" />
           <ThemeToggle />
         </div>

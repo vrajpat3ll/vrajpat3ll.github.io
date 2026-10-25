@@ -1,9 +1,24 @@
 "use client";
 
-import { Quote as QuoteIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FullLine } from "@/components/ui/divider";
 import { dayIndex, quoteForDay } from "@/lib/quotes";
+
+function PixelQuote() {
+  return (
+    <svg
+      viewBox="0 0 10 6"
+      aria-hidden="true"
+      className="h-2.5 w-auto text-zinc-400 dark:text-zinc-600"
+      fill="currentColor"
+    >
+      <rect x="0" y="0" width="4" height="4" />
+      <rect x="0" y="4" width="2" height="2" />
+      <rect x="6" y="0" width="4" height="4" />
+      <rect x="6" y="4" width="2" height="2" />
+    </svg>
+  );
+}
 
 /**
  * Rotates once per day. `buildDayIndex` is computed on the server at build time
@@ -28,17 +43,17 @@ export function Quote({ buildDayIndex }: { buildDayIndex: number }) {
   return (
     <div className="relative px-4 py-10 sm:px-5">
       <FullLine className="top-0" />
-      <QuoteIcon className="size-9 fill-current text-zinc-300 dark:text-zinc-700" />
       <div
         key={quote.text}
-        className="min-h-[6.5rem] animate-[fade-up_400ms_ease-out] sm:min-h-[6rem]"
+        className="animate-[fade-up_400ms_ease-out] border-l border-border pl-4 sm:pl-5"
       >
-        <blockquote className="mb-6 mt-2 max-w-2xl text-xl font-medium italic text-zinc-700 dark:text-zinc-300 sm:text-2xl">
+        <PixelQuote />
+        <blockquote className="mt-2 mb-5 max-w-2xl text-xl font-medium italic text-zinc-700 dark:text-zinc-300 sm:text-2xl">
           {quote.text}
         </blockquote>
         <div className="flex items-center gap-3">
           <span className="h-px w-8 bg-border" />
-          <span className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+          <span className="font-mono text-xs text-muted-foreground">
             {quote.author}
           </span>
           <span className="h-px w-8 bg-border" />

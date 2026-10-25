@@ -1,6 +1,7 @@
 "use client";
 
-import { BadgeCheck, Camera } from "lucide-react";
+import { Camera } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { AnimatedText } from "@/components/animated-text";
 import { ActivityStatus } from "@/components/activity-status";
@@ -61,6 +62,17 @@ function AvatarImage({
 export function ProfileHeader() {
   const [glitching, setGlitching] = useState(false);
   const [failed, setFailed] = useState(false);
+  const reduce = useReducedMotion();
+
+  const enter = (delay: number) => ({
+    initial: { opacity: 0, y: reduce ? 0 : 10 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: reduce ? 0 : 0.35,
+      ease: "easeOut" as const,
+      delay: reduce ? 0 : delay,
+    },
+  });
 
   return (
     <>
@@ -70,7 +82,10 @@ export function ProfileHeader() {
         <CornerMark className="-top-1.5 left-0 -translate-x-1/2" />
         <CornerMark className="-top-1.5 right-0 translate-x-1/2" />
 
-        <div className="w-[35%] shrink-0 p-2 sm:w-auto sm:p-5">
+        <motion.div
+          {...enter(0)}
+          className="w-[35%] shrink-0 p-2 sm:w-auto sm:p-5"
+        >
           <div className="aspect-square rounded-xl border border-border p-1 transition duration-300 hover:brightness-90 sm:size-32">
             <Dialog>
               <DialogTrigger asChild>
@@ -105,7 +120,7 @@ export function ProfileHeader() {
               </DialogContent>
             </Dialog>
           </div>
-        </div>
+        </motion.div>
 
         <div className="flex flex-1 flex-col justify-center gap-1 py-2 pl-2 sm:pl-4">
           <div className="flex items-center">
@@ -121,22 +136,22 @@ export function ProfileHeader() {
             </Tooltip>
           </div>
 
-          <div className="flex items-center gap-2 pt-2 pb-2">
+          <motion.div {...enter(0.08)} className="pt-2 pb-2">
             <h1 className="font-pixel text-xl leading-none font-black sm:text-3xl">
               {site.name}
             </h1>
-            <BadgeCheck
-              aria-label="Verified"
-              className="size-4.5 shrink-0 text-info"
+          </motion.div>
+
+          <motion.div {...enter(0.16)}>
+            <AnimatedText
+              phrases={rolePhrases}
+              className="block min-h-5 overflow-hidden font-mono text-sm text-muted-foreground"
             />
-          </div>
+          </motion.div>
 
-          <AnimatedText
-            phrases={rolePhrases}
-            className="min-h-5 overflow-hidden font-mono text-sm text-muted-foreground"
-          />
-
-          <ActivityStatus />
+          <motion.div {...enter(0.24)}>
+            <ActivityStatus />
+          </motion.div>
         </div>
       </div>
     </>

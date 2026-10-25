@@ -3,14 +3,12 @@ import { ArrowUpRight } from "lucide-react";
 import { BlogList } from "@/components/blog-list";
 import { Panel } from "@/components/ui/panel";
 import { getBlogs } from "@/lib/blog";
-import { site } from "@/lib/content";
+import { site, tilUrl } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Blog",
   description: "Research notes on systems, market simulation, and agents.",
 };
-
-const TIL_URL = "https://vrajpat3ll.github.io/til";
 
 export default function BlogPage() {
   const items = getBlogs().map((doc) => ({
@@ -32,7 +30,7 @@ export default function BlogPage() {
           mostly systems and tooling.
         </p>
         <a
-          href={TIL_URL}
+          href={tilUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="group mt-5 inline-flex h-9 items-center gap-2 rounded-xl border border-border bg-card px-3 text-xs font-medium text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground"

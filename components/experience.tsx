@@ -1,4 +1,4 @@
-import { CodeXml } from "lucide-react";
+import { ChevronRight, CodeXml } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -8,13 +8,19 @@ import { Panel } from "@/components/ui/panel";
 import { TagList } from "@/components/ui/tag";
 import { experience, type Experience as ExperienceItem } from "@/lib/content";
 
-function Job({ job }: { job: ExperienceItem }) {
+function Job({
+  job,
+  defaultOpen,
+}: {
+  job: ExperienceItem;
+  defaultOpen?: boolean;
+}) {
   return (
-    <Collapsible className="group">
+    <Collapsible className="group" defaultOpen={defaultOpen}>
       <div className="flex items-start gap-3">
         <CodeXml className="mt-1 size-4 shrink-0 text-muted-foreground" />
         <div className="min-w-0 flex-1">
-          <CollapsibleTrigger>
+          <CollapsibleTrigger className="flex w-full items-start justify-between gap-3 text-left outline-none focus-visible:ring-[3px] focus-visible:ring-accent">
             <div className="flex flex-col">
               <span className="text-base font-medium leading-snug text-foreground">
                 {job.role}
@@ -30,6 +36,7 @@ function Job({ job }: { job: ExperienceItem }) {
                 </div>
               </dl>
             </div>
+            <ChevronRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-90" />
           </CollapsibleTrigger>
 
           {job.stack.length > 0 && (
@@ -89,7 +96,11 @@ export function Experience() {
               </div>
               <div className="ml-1 mt-4 space-y-6 border-l border-border pl-5">
                 {jobs.map((job) => (
-                  <Job key={`${job.company}-${job.role}`} job={job} />
+                  <Job
+                    key={`${job.company}-${job.role}`}
+                    job={job}
+                    defaultOpen={job === experience[0]}
+                  />
                 ))}
               </div>
             </div>

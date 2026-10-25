@@ -1,6 +1,7 @@
 import { ProfileHeader } from "@/components/profile-header";
 import { About } from "@/components/about";
 import { SocialLinks } from "@/components/social-links";
+import { RecentNotes } from "@/components/recent-notes";
 import { GitHubActivity } from "@/components/github-activity";
 import { Experience } from "@/components/experience";
 import { Education } from "@/components/education";
@@ -15,6 +16,7 @@ export default function HomePage() {
       <StripedDivider />
       <About />
       <SocialLinks />
+      <RecentNotes />
       <GitHubActivity />
       <Experience />
       <Education />

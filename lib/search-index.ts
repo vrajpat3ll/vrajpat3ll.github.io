@@ -1,4 +1,4 @@
-import { connect, moreNav, nav, projects } from "@/lib/content";
+import { connect, moreNav, nav, projects, tilUrl } from "@/lib/content";
 
 export type SearchItem = {
   id: string;
@@ -10,7 +10,14 @@ export type SearchItem = {
   external?: boolean;
 };
 
-export function getSearchIndex(): SearchItem[] {
+export type LatestPost = {
+  title: string;
+  slug: string;
+};
+
+export function getSearchIndex(
+  options: { latestPost?: LatestPost } = {},
+): SearchItem[] {
   const items: SearchItem[] = [];
 
   for (const item of nav) {
@@ -31,6 +38,27 @@ export function getSearchIndex(): SearchItem[] {
       external: item.external,
     });
   }
+
+  if (options.latestPost) {
+    items.push({
+      id: "latest-post",
+      title: options.latestPost.title,
+      subtitle: "Latest note",
+      href: `/blog/${options.latestPost.slug}/`,
+      group: "Writing",
+      keywords: "blog latest note writing",
+    });
+  }
+
+  items.push({
+    id: "page-til",
+    title: "TIL",
+    subtitle: "Today I learned",
+    href: tilUrl,
+    group: "Writing",
+    keywords: "notes til learning",
+    external: true,
+  });
 
   items.push({
     id: "page-resume",

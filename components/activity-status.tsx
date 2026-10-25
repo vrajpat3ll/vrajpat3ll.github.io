@@ -45,7 +45,7 @@ export function ActivityStatus() {
           live ? "bg-live live-dot" : "bg-muted-foreground/40"
         }`}
       />
-      <span className="break-words">{label}</span>
+      <span className="min-w-0 flex-1 truncate">{label}</span>
     </span>
   );
 }

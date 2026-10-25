@@ -37,6 +37,7 @@ export type Education = {
 export type Project = {
   name: string;
   blurb: string;
+  insight?: string;
   href?: string;
   repo?: string;
   image?: string;
@@ -57,7 +58,7 @@ export const site = {
   title: "Vraj Patel — Software Developer",
   description:
     "Personal site and portfolio of Vraj Patel — software developer building at the intersection of systems, AI, and the web.",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  bio: "Software developer working across systems, quantitative research, and AI — taking complex things apart, then rebuilding them.",
 } as const;
 
 export const about: string[] = [
@@ -122,13 +123,13 @@ export const nav: { title: string; href: string }[] = [
 ];
 
 export const moreNav: { title: string; href: string; external?: boolean }[] = [
-  { title: "Blogs", href: "/blog" },
+  { title: "Blog", href: "/blog" },
 ];
 
 export const rolePhrases = [
-  "Software Developer",
-  "CSE '26 · IIT Jammu",
   "Systems & AI",
+  "Taking complex things apart",
+  "CSE '26 · IIT Jammu",
 ];
 
 export const experience: Experience[] = [
@@ -195,6 +196,8 @@ export const projects: Project[] = [
     name: "Orion",
     blurb:
       "An autonomous coding agent with an interactive CLI for running prompts and managing tools, built around an edit-run-review loop.",
+    insight:
+      "A tight edit-run-review loop was more reliable than one large prompt.",
     repo: "https://github.com/vrajpat3ll/orion",
     stack: ["Python", "LLMs", "CLI"],
     year: "2026",
@@ -206,6 +209,8 @@ export const projects: Project[] = [
     name: "Load balancing for 5G networks",
     blurb:
       "A 5G core simulation for testing traffic-aware AMF load balancing and auto-scaling, moving UE context between instances without dropping sessions.",
+    insight:
+      "UE context can move between AMF instances without a session drop.",
     repo: "https://github.com/vrajpat3ll/elastic-lb",
     stack: ["C", "SCTP", "Kubernetes"],
     year: "2025",
@@ -217,6 +222,8 @@ export const projects: Project[] = [
     name: "Movie recommendation",
     blurb:
       "A content-based recommender that suggests movies and shows from synopsis, genre, cast, and director, shipped as a live Streamlit app.",
+    insight:
+      "Metadata alone carries enough signal to avoid a cold-start problem.",
     href: "https://movie-recs-vrajpat3ll.streamlit.app",
     repo: "https://github.com/vrajpat3ll/movie-recommendation",
     stack: ["Python", "Streamlit", "NLP"],
@@ -229,6 +236,8 @@ export const projects: Project[] = [
     name: "Dream 11 dream team predictor",
     blurb:
       "Our solution to Dream11's Next-Gen Dream Team Predictor problem statement at Inter-IIT 13.0, held at IIT Bombay.",
+    insight:
+      "A reproducible pipeline mattered more than model choice under time pressure.",
     repo: "https://github.com/vrajpat3ll/Dream-11-Mid-Prep",
     stack: ["Python", "Machine learning", "Data science"],
     year: "2025",
@@ -240,6 +249,8 @@ export const projects: Project[] = [
     name: "Aarogya Salahkar",
     blurb:
       "A GraphRAG healthcare assistant that answers medical questions in Gujarati using a Neo4j knowledge graph, ChromaDB embeddings, and a QLoRA fine-tuned Qwen model.",
+    insight:
+      "Graph retrieval plus fine-tuning put grounded Q&A into Gujarati, not English.",
     repo: "https://github.com/vrajpat3ll/aarogya-salahkar",
     stack: ["Python", "GraphRAG", "QLoRA", "Neo4j"],
     year: "2026",
@@ -253,6 +264,8 @@ export const lastfm = {
   username: "vrajpat3ll",
 } as const;
 
+export const tilUrl = "https://vrajpat3ll.github.io/til";
+
 export type Quote = {
   text: string;
   author: string;
@@ -260,24 +273,20 @@ export type Quote = {
 
 export const quotes: Quote[] = [
   {
-    text: "The people who are crazy enough to think they can change the world are the ones who do.",
-    author: "Steve Jobs",
+    text: "What I cannot create, I do not understand.",
+    author: "Richard Feynman",
   },
   {
-    text: "Stay hungry. Stay foolish.",
-    author: "Steve Jobs",
+    text: "Premature optimization is the root of all evil.",
+    author: "Donald Knuth",
   },
   {
-    text: "The most dangerous phrase in the language is, 'We've always done it this way.'",
-    author: "Grace Hopper",
+    text: "Everyone knows that debugging is twice as hard as writing a program in the first place.",
+    author: "Brian Kernighan",
   },
   {
-    text: "It's easier to ask forgiveness than it is to get permission.",
-    author: "Grace Hopper",
-  },
-  {
-    text: "The best way to predict the future is to invent it.",
-    author: "Alan Kay",
+    text: "Focus is a matter of deciding what things you're not going to do.",
+    author: "John Carmack",
   },
   {
     text: "We can only see a short distance ahead, but we can see plenty there that needs to be done.",
@@ -288,16 +297,36 @@ export const quotes: Quote[] = [
     author: "Linus Torvalds",
   },
   {
-    text: "Premature optimization is the root of all evil.",
-    author: "Donald Knuth",
+    text: "The best way to predict the future is to invent it.",
+    author: "Alan Kay",
+  },
+  {
+    text: "Make it work, make it right, make it fast.",
+    author: "Kent Beck",
   },
   {
     text: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
     author: "Martin Fowler",
   },
   {
-    text: "What I cannot create, I do not understand.",
-    author: "Richard Feynman",
+    text: "If you double the number of experiments you do per year, you're going to double your inventiveness.",
+    author: "Jeff Bezos",
+  },
+  {
+    text: "The most dangerous phrase in the language is, 'We've always done it this way.'",
+    author: "Grace Hopper",
+  },
+  {
+    text: "It's easier to ask forgiveness than it is to get permission.",
+    author: "Grace Hopper",
+  },
+  {
+    text: "The people who are crazy enough to think they can change the world are the ones who do.",
+    author: "Steve Jobs",
+  },
+  {
+    text: "Stay hungry. Stay foolish.",
+    author: "Steve Jobs",
   },
   {
     text: "It's fine to celebrate success, but it is more important to heed the lessons of failure.",
@@ -308,28 +337,12 @@ export const quotes: Quote[] = [
     author: "Satya Nadella",
   },
   {
-    text: "If you double the number of experiments you do per year, you're going to double your inventiveness.",
-    author: "Jeff Bezos",
-  },
-  {
     text: "Make something people want.",
     author: "Paul Graham",
   },
   {
     text: "If you are not embarrassed by the first version of your product, you've launched too late.",
     author: "Reid Hoffman",
-  },
-  {
-    text: "Focus is a matter of deciding what things you're not going to do.",
-    author: "John Carmack",
-  },
-  {
-    text: "Everyone knows that debugging is twice as hard as writing a program in the first place.",
-    author: "Brian Kernighan",
-  },
-  {
-    text: "Make it work, make it right, make it fast.",
-    author: "Kent Beck",
   },
   {
     text: "The Web does not just connect machines, it connects people.",

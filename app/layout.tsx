@@ -8,6 +8,7 @@ import { ProgressBar } from "@/components/progress-bar";
 import { ThemeProvider } from "@/components/providers";
 import { Column } from "@/components/ui/panel";
 import { connect, site } from "@/lib/content";
+import { getBlogs } from "@/lib/blog";
 import "./globals.css";
 
 const sameAs = connect
@@ -69,6 +70,11 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');var isD
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const latest = getBlogs()[0];
+  const latestPost = latest
+    ? { title: latest.frontmatter.title, slug: latest.slug }
+    : undefined;
+
   return (
     <html
       lang="en"
@@ -86,7 +92,7 @@ export default function RootLayout({
       <body className="min-h-dvh antialiased">
         <ThemeProvider>
           <ProgressBar />
-          <SiteHeader />
+          <SiteHeader latestPost={latestPost} />
           <main className="max-w-screen overflow-x-clip px-2">
             <Column>{children}</Column>
           </main>

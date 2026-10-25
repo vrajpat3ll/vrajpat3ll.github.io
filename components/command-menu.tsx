@@ -4,15 +4,19 @@ import { Command } from "cmdk";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { getSearchIndex, type SearchItem } from "@/lib/search-index";
+import {
+  getSearchIndex,
+  type LatestPost,
+  type SearchItem,
+} from "@/lib/search-index";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { cn } from "@/lib/utils";
 
-export function CommandMenu() {
+export function CommandMenu({ latestPost }: { latestPost?: LatestPost }) {
   const [open, setOpen] = useState(false);
   const [isMac, setIsMac] = useState(false);
   const router = useRouter();
-  const items = useMemo(() => getSearchIndex(), []);
+  const items = useMemo(() => getSearchIndex({ latestPost }), [latestPost]);
 
   useEffect(() => {
     setIsMac(/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform));

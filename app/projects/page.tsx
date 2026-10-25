@@ -20,16 +20,23 @@ export default function ProjectsPage() {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {projects.map((project) => {
-          const href = project.href ?? project.repo ?? "#";
+          const primary = project.href ?? project.repo ?? "#";
+          const secondary =
+            project.href && project.repo ? project.repo : undefined;
+          const primaryLabel = project.href ? "Live demo" : "Source";
+
           return (
-            <a
+            <div
               key={project.name}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
               className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-muted-foreground/40 hover:bg-muted"
             >
-              <div className="pattern-dots relative flex aspect-16/10 items-center justify-center border-b border-border bg-muted">
+              <a
+                href={primary}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${project.name} — ${primaryLabel}`}
+                className="pattern-dots relative flex aspect-16/10 items-center justify-center border-b border-border bg-muted outline-none focus-visible:ring-[3px] focus-visible:ring-accent"
+              >
                 {project.image ? (
                   <Image
                     src={project.image}
@@ -48,18 +55,30 @@ export default function ProjectsPage() {
                 <span className="absolute top-2 right-2 rounded-md border border-border bg-background/80 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground backdrop-blur-sm">
                   {project.year}
                 </span>
-              </div>
+              </a>
 
               <div className="flex flex-1 flex-col p-4">
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-sm font-medium text-foreground">
-                    {project.name}
+                    <a
+                      href={primary}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-sm outline-none transition-colors hover:text-info focus-visible:ring-[3px] focus-visible:ring-accent"
+                    >
+                      {project.name}
+                    </a>
                   </h2>
                   <ArrowIcon className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                 </div>
                 <p className="mt-1.5 flex-1 text-sm text-muted-foreground">
                   {project.blurb}
                 </p>
+                {project.insight && (
+                  <p className="mt-2 font-mono text-xs leading-relaxed text-info">
+                    {project.insight}
+                  </p>
+                )}
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {project.stack.map((tech) => (
                     <span
@@ -70,8 +89,28 @@ export default function ProjectsPage() {
                     </span>
                   ))}
                 </div>
+                {secondary && (
+                  <div className="mt-3 flex items-center gap-3 font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                    <a
+                      href={primary}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-sm outline-none transition-colors hover:text-foreground focus-visible:text-foreground"
+                    >
+                      Live
+                    </a>
+                    <a
+                      href={secondary}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-sm outline-none transition-colors hover:text-foreground focus-visible:text-foreground"
+                    >
+                      GitHub
+                    </a>
+                  </div>
+                )}
               </div>
-            </a>
+            </div>
           );
         })}
       </div>
