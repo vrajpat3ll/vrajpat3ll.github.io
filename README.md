@@ -101,6 +101,27 @@ is enough — no redirect URI or user login). Then set the Worker URL as
 variable** of the same name. The widget asks the resolver per track, caches the
 answer, and silently falls back to the search link if it's unset or errors.
 
+## Reading shelf (Apple Books)
+
+Apple Books has no public API, and its library is sandboxed on iOS/iPadOS, so
+progress can't be read automatically without a Mac. Instead, a pair of iOS
+**Shortcuts** posts the current book and percentage to a small Cloudflare
+Worker, which enriches the entry with a cover + page count and stores it in KV.
+The `/reading/` page is prerendered from a build-time snapshot and then
+refreshes from the Worker in the browser, so updates show up without a redeploy.
+
+```bash
+cd workers/books-shelf
+npx wrangler kv namespace create BOOKS_SHELF   # paste id into wrangler.toml
+npx wrangler secret put BOOKS_AUTH_TOKEN
+npx wrangler deploy
+```
+
+Then set the Worker URL as `NEXT_PUBLIC_BOOKS_URL` in `.env.local` and as a repo
+**Actions variable** of the same name. Shortcut recipes and the full API live in
+[`workers/books-shelf/README.md`](workers/books-shelf/README.md). Without the
+URL the page still builds and shows an empty state.
+
 ## GitHub activity
 
 The contribution heatmap is **prerendered from a build-time snapshot** and then

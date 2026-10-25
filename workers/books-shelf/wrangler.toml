@@ -1,0 +1,12 @@
+name = "books-shelf"
+main = "index.js"
+compatibility_date = "2026-01-01"
+
+# Create the namespace with `npx wrangler kv namespace create BOOKS_SHELF`
+# and paste the returned id here.
+[[kv_namespaces]]
+binding = "BOOKS_SHELF"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Secrets (set with `wrangler secret put`):
+#   BOOKS_AUTH_TOKEN

@@ -124,6 +124,7 @@ export const nav: { title: string; href: string }[] = [
 
 export const moreNav: { title: string; href: string; external?: boolean }[] = [
   { title: "Blog", href: "/blog" },
+  { title: "Reading", href: "/reading" },
 ];
 
 export const rolePhrases = [

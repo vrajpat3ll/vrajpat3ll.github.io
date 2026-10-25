@@ -24,6 +24,7 @@ Personal site: Next.js App Router, **static export** to GitHub Pages. See `READM
 - **Brand marks** live in `assets/brands/*.svg` (not `public/`). They're rendered as CSS `mask-image` in `components/brand-mark.tsx`, so each SVG must be a single-colour mark that inherits `currentColor` — don't bake in brand colours.
 - **Quote of the day** (`lib/quotes.ts`) is day-stable. `app/page.tsx` passes the build-day index down so prerender and first client render match; client re-syncs in `components/quote.tsx`. Don't compute `new Date()` unconditionally at render.
 - `workers/spotify-resolver/` is a **separate Cloudflare Worker** (plain JS, wrangler), not part of the Next build. It returns `{ songUrl }` and is optional — the widget falls back to a Spotify search link.
+- `workers/books-shelf/` is the reading shelf backend (separate Worker + KV). The site reads `NEXT_PUBLIC_BOOKS_URL`: build-time snapshot in `app/reading/page.tsx`, browser refresh in `components/reading-shelf.tsx`. Apple Books can't be read automatically on iOS — books are logged via Shortcuts (see the worker README). Cover lookup happens in the Worker, never client-side.
 - Build artifacts `out/` and `.next/` are gitignored; never edit them.
 
 <!-- BEGIN:nextjs-agent-rules -->
