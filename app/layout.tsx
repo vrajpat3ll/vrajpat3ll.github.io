@@ -89,12 +89,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-dvh antialiased">
+      <body className="flex min-h-dvh flex-col antialiased">
         <ThemeProvider>
           <ProgressBar />
           <SiteHeader latestPost={latestPost} />
-          <main className="max-w-screen overflow-x-clip px-2">
-            <Column>{children}</Column>
+          <main className="flex max-w-screen flex-1 flex-col overflow-x-clip px-2">
+            <Column className="w-full flex-1">{children}</Column>
           </main>
           <div className="px-2">
             <Column>
