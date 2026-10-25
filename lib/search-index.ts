@@ -1,4 +1,11 @@
-import { connect, moreNav, nav, projects, tilUrl } from "@/lib/content";
+import {
+  connect,
+  moreNav,
+  nav,
+  projects,
+  resumeHref,
+  tilUrl,
+} from "@/lib/content";
 
 export type SearchItem = {
   id: string;
@@ -62,9 +69,9 @@ export function getSearchIndex(
 
   items.push({
     id: "page-resume",
-    title: "Resume",
+    title: "Résumé",
     subtitle: "PDF",
-    href: "/resume.pdf",
+    href: resumeHref,
     group: "Pages",
     external: true,
   });
@@ -82,6 +89,7 @@ export function getSearchIndex(
   }
 
   for (const link of connect) {
+    if (link.href.endsWith(".pdf")) continue;
     items.push({
       id: `connect-${link.label}`,
       title: link.label,

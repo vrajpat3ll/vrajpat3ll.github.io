@@ -66,7 +66,15 @@ export const about: string[] = [
   "Most of what I build starts from a question. How does a network behave under load? How much does a market simulator distort what a strategy learns? How far can an autonomous agent get with a few tools? I write up a few of them as notes in the blog.",
 ];
 
+export const resumeHref = "/resume.pdf";
+
 export const connect: ConnectLink[] = [
+  {
+    label: "Résumé",
+    handle: "PDF",
+    href: resumeHref,
+    icon: "resume",
+  },
   {
     label: "GitHub",
     handle: "@vrajpat3ll",
