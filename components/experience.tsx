@@ -1,4 +1,4 @@
-import { ChevronRight, CodeXml } from "lucide-react";
+import { CodeXml } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -36,7 +36,6 @@ function Job({
                 </div>
               </dl>
             </div>
-            <ChevronRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-90" />
           </CollapsibleTrigger>
 
           {job.stack.length > 0 && (

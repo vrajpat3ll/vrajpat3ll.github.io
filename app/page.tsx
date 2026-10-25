@@ -16,10 +16,10 @@ export default function HomePage() {
       <StripedDivider />
       <About />
       <SocialLinks />
-      <RecentNotes />
       <GitHubActivity />
       <Experience />
       <Education />
+      <RecentNotes />
       <Quote buildDayIndex={dayIndex()} />
     </>
   );

@@ -45,13 +45,13 @@ export function Quote({ buildDayIndex }: { buildDayIndex: number }) {
       <FullLine className="top-0" />
       <div
         key={quote.text}
-        className="animate-[fade-up_400ms_ease-out] border-l border-border pl-4 sm:pl-5"
+        className="animate-[fade-up_400ms_ease-out] text-center"
       >
         <PixelQuote />
-        <blockquote className="mt-2 mb-5 max-w-2xl text-xl font-medium italic text-zinc-700 dark:text-zinc-300 sm:text-2xl">
+        <blockquote className="mx-auto mt-2 mb-5 max-w-2xl text-xl font-medium italic text-zinc-700 dark:text-zinc-300 sm:text-2xl">
           {quote.text}
         </blockquote>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3">
           <span className="h-px w-8 bg-border" />
           <span className="font-mono text-xs text-muted-foreground">
             {quote.author}

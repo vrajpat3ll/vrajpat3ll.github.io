@@ -74,11 +74,6 @@ export default function ProjectsPage() {
                 <p className="mt-1.5 flex-1 text-sm text-muted-foreground">
                   {project.blurb}
                 </p>
-                {project.insight && (
-                  <p className="mt-2 font-mono text-xs leading-relaxed text-info">
-                    {project.insight}
-                  </p>
-                )}
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {project.stack.map((tech) => (
                     <span
